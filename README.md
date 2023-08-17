@@ -1,2 +1,3 @@
 # IntertechDOB
-Intertech Digital Onboarding Project
+
+run.py 'nin içinde gerekli tüm fonksiyonlar anlatılmıştır.
