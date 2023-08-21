@@ -27,8 +27,23 @@ def base64_to_img(base64_img):
     return Image.open(buffered)
 
 
+def img_save(photo):
+    image1_data = base64.b64decode(photo)
+
+    # Convert binary data to PIL Image objects
+    image1 = Image.open(BytesIO(image1_data))
+
+    image1.save("temp_image.jpg")
+
+    return "temp_image.jpg"
+
+
 class KimlikTespit:
     def __init__(self, weights, source):
+        """
+        @type weights: str
+        """
+        self.base64format = None
         self.weights = weights
         self.source = source
         self.data = "data/coco128.yaml"
@@ -116,7 +131,6 @@ class KimlikTespit:
                 self.df.loc[row_count + idx] = [detection["class"], detection["label"], detection["cropped_base64"]]
         return True
 
-
     # Face Matcher
     def yuz_kontrol(self, p_photo):
         base64_image2 = self.df[self.df['label'] == 'fotograf']['base64'].iloc[0]
@@ -147,8 +161,6 @@ class KimlikTespit:
 
         return result["verified"]
 
-
-
         # # Karşılaştırma yapılacak iki resmi belirtin
         # id_photo = self.df[self.df['label'] == 'fotograf']['base64'].iloc[0]
         #
@@ -156,5 +168,3 @@ class KimlikTespit:
         # result = DeepFace.verify(id_photo, present_photo, model_name="ArcFace")
         #
         # return result
-
-
