@@ -25,7 +25,7 @@ os.remove(source)
 
 df = kimlikTespit.df
 
-person_photo = df[df['label'] == 'fotograf']['base64'].iloc[0]
+person_photo = "BASE64_FOTOGRAF_GIRILECEK"
 # Yüz tespiti gerçekleştir. BASE64_FOTOGRAF_GIRILECEK kısmına BASE64 decoded fotoğraf gelmeli.
 # Input: String[]    Output: Bool
 yuz_kontrol_sonuc = kimlikTespit.yuz_kontrol(person_photo)
