@@ -8,7 +8,7 @@ weights = "weights/onyuz_weight.pt"
 base64_code = ""  # base64 kodu buraya gelecek
 source = img_save(base64_code)
 
-kimlikTespit = KimlikTespit(weights, img_save(base64_code))
+kimlikTespit = KimlikTespit(weights, source)
 onyuz_sonuc = kimlikTespit.kimlik_kontrol()
 os.remove(source)
 
