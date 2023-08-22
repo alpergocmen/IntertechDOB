@@ -8,7 +8,7 @@ weights = "weights/onyuz_weight.pt"
 base64_code = ""  # base64 kodu buraya gelecek
 source = img_save(base64_code)
 
-kimlikTespit = KimlikTespit(weights, source)
+kimlikTespit = KimlikTespit(weights, img_save(base64_code))
 onyuz_sonuc = kimlikTespit.kimlik_kontrol()
 os.remove(source)
 
@@ -25,10 +25,20 @@ os.remove(source)
 
 df = kimlikTespit.df
 
-person_photo = "BASE64_FOTOGRAF_GIRILECEK"
+person_photo = df[df['label'] == 'fotograf']['base64'].iloc[0]
 # Yüz tespiti gerçekleştir. BASE64_FOTOGRAF_GIRILECEK kısmına BASE64 decoded fotoğraf gelmeli.
 # Input: String[]    Output: Bool
 yuz_kontrol_sonuc = kimlikTespit.yuz_kontrol(person_photo)
+
+# Kimlik verilerini df'e yazar
+# Input: -    Output: DataFrame
+kimlikTespit.extract_text()
+
+# Barkod kontrolü yapar
+# Input: -    Output: Bool
+kimlikTespit.match_barcode()
+
+df = kimlikTespit.df
 
 print(onyuz_sonuc)
 print(arkayuz_sonuc)

@@ -9,6 +9,38 @@ import base64
 from io import BytesIO
 from deepface import DeepFace
 import os
+import pytesseract
+from pyzbar.pyzbar import decode
+
+
+def validate_tckn(tc_number):
+    # TC kimlik numarasının uzunluğu 11 olmalıdır.
+    if len(tc_number) != 11:
+        return False
+
+    # TC kimlik numarasının sadece rakamlardan oluştuğunu kontrol etme
+    if not tc_number.isdigit():
+        return False
+
+    # İlk hane 0 olmamalıdır.
+    if tc_number[0] == "0":
+        return False
+
+    # Son hane çift sayı olmalıdır.
+    if int(tc_number[-1]) % 2 != 0:
+        return False
+
+    # Kontrol basamakları hesaplaması
+    odd_sum = sum(int(tc_number[i]) for i in range(0, 9, 2))
+    even_sum = sum(int(tc_number[i]) for i in range(1, 8, 2))
+    tenth_digit = (odd_sum * 7 - even_sum) % 10
+    eleventh_digit = (odd_sum + even_sum + int(tc_number[9])) % 10
+
+    # Kontrol basamakları doğrulaması
+    if int(tc_number[9]) != tenth_digit or int(tc_number[10]) != eleventh_digit:
+        return False
+
+    return True
 
 
 def base64_to_img(base64_img):
@@ -73,6 +105,78 @@ class KimlikTespit:
         self.dnn = False
         self.vid_stride = 1
         self.df = pd.DataFrame(columns=["class", "label", "base64"])
+
+    # Barkod eşleştirme
+    def match_barcode(self):
+        def read_barcode_from_base64(base64_image):
+            image_data = base64.b64decode(base64_image)
+            image_stream = BytesIO(image_data)
+            image = Image.open(image_stream)
+            image_cv2 = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+
+            decoded_objects = decode(image_cv2)
+            if decoded_objects:
+                for obj in decoded_objects:
+                    barcode_data = obj.data.decode('utf-8')
+            else:
+                print("Barkod Okunamadı")
+            return barcode_data
+
+        base64_image = self.df.loc[self.df["label"] == "barkod", "base64"].iloc[0]
+        a = read_barcode_from_base64(base64_image)
+
+        if self.df.loc[self.df["label"] == "tckn", "text"].iloc[0] == a:
+            return True
+        else:
+            return False
+
+    # Kimlikteki bilgieri çıkarıp df'e yaz
+    def extract_text(self):
+        pytesseract.pytesseract.tesseract_cmd = "pyteserract/tesseract.exe"
+
+        def base64_to_img(base64_img):
+            image_data = base64.b64decode(base64_img)
+            image_stream = BytesIO(image_data)
+            buffered = BytesIO()
+            Image.open(image_stream).save(buffered, format="JPEG")
+            return cv2.cvtColor(np.array(Image.open(buffered)), cv2.COLOR_RGB2BGR)
+
+        def denoiseImage(img):
+            img_denoise = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 15)
+            imgGray = cv2.cvtColor(img_denoise, cv2.COLOR_BGR2GRAY)
+            imgBlur = cv2.GaussianBlur(imgGray, (5, 5), 1)
+            ret, imgf = cv2.threshold(imgBlur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            kernel = np.ones((1, 1), np.uint8)
+            img_dilation = cv2.dilate(imgf, kernel, iterations=1)
+            img_erosion = cv2.erode(img_dilation, kernel, iterations=1)
+            return img_erosion
+
+        def extract_text_from_image(image):
+            # Crop the lower part of the image (adjust the cropping parameters as needed)
+            height, width, _ = image.shape
+            cropped_image = image[int(height * 0.4):, :]
+
+            denoised_image = denoiseImage(cropped_image)
+            custom_config = r'--oem 3 --psm 6'
+            extracted_text = pytesseract.image_to_string(denoised_image, config=custom_config, lang='tur')
+
+            return extracted_text
+
+        class_list = ["isim", "dogum", "tckn", "serino", "soyad", "cinsiyet", "baba_adi", "anne_adi", "pen"]
+        self.df["text"] = np.NaN
+        for i in class_list:
+            b64 = self.df[self.df["label"] == i]["base64"].iloc[0]
+            image = base64_to_img(b64)
+            extracted_text = extract_text_from_image(image)
+            self.df.loc[self.df["label"] == i, "text"] = extracted_text
+        self.df["text"] = self.df["text"].str.strip("\n")
+
+        if validate_tckn(self.df[self.df["label"] == "tckn"]["text"].iloc[0]):
+            print("Geçerli TCKN")
+        else:
+            print("Geçersiz TCKN")
+
+        return self.df
 
     def set_weight_source(self, x, y):
         self.weights = x
