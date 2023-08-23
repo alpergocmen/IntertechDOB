@@ -29,7 +29,6 @@ def process_photo():
             'on_yuz_sonuc': on_yuz_sonuc,
             # Add other results here
         }
-        print(response)
         
         return jsonify(response), 200
     

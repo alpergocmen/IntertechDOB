@@ -18,14 +18,8 @@ def process_photo():
         weights = "weights/arkayuz_weight.pt"
         source = img_save(arka_yuz_image)
         kimlik_tespit = KimlikTespit(weights, source)
-        arka_yuz_sonuc = kimlik_tespit.kimlik_kontrol()    
-        os.remove(source)
-        
-        response = {
-            'arka_yuz_sonuc': arka_yuz_sonuc,
-            # Add other results here
-        }
-        print(response)
+        arka_yuz_sonuc = kimlik_tespit.kimlik_kontrol()
+        os.remove(source)  
         
         df2 = kimlik_tespit.df
         df1 = pd.read_csv("df.csv")
@@ -33,9 +27,18 @@ def process_photo():
         df_concat = pd.concat([df1, df2], ignore_index=False,)
         df_concat.drop(df_concat.columns[df_concat.columns.str.contains('unnamed',case = False)],axis = 1, inplace = True)
         df_concat.reset_index(drop=True, inplace=True)
+        
+        df_concat = kimlik_tespit.extract_text(df_concat)
+        
+        barkod_kontrol_sonuc = kimlik_tespit.match_barcode(df_concat)
+        
         df_concat.to_csv("df_concat.csv", index=False)
         
-        os.remove("df.csv")
+        response = {
+            'arka_yuz_sonuc': arka_yuz_sonuc,
+            'barkod_kontrol_sonuc': barkod_kontrol_sonuc,
+        }
+        
         return jsonify(response), 200
     
     except Exception as e:
