@@ -181,6 +181,7 @@ def run(
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         annotator.box_label(xyxy, label, color=colors(c, True))
                     if save_crop:
+                         
                          # save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
                          # Slice işlemi için xyxy değerlerini dönüştürüyoruz
                          xyxy = np.array(xyxy, dtype=int)
@@ -188,8 +189,10 @@ def run(
                          cropped_im = imc[xyxy[1]:xyxy[3], xyxy[0]:xyxy[2]]
                          buffered = BytesIO()
                          Image.fromarray(cropped_im).save(buffered, format="JPEG")
-
-                         cropped_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+                         if names[int(cls)] in ['onyuz', 'tckk','hilal','imza','arkayuz', 'id_check','alt_barkod']:
+                            cropped_base64 = np.NaN
+                         else:
+                            cropped_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
                          # detections_dict["cropped_base64"] = cropped_base64
 
                     detection_info = {  # bilgileri dictionarye kaydet

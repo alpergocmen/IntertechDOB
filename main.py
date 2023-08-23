@@ -196,7 +196,7 @@ class KimlikTespit:
         onyuz_labels = ['onyuz', 'tckk', 'tckn', 'hilal', 'soyad', 'isim', 'dogum', 'serino', 'cinsiyet', 'imza',
                         'fotograf']
         arkayuz_labels = ['arkayuz', 'id_check', 'barkod', 'anne_adi', 'baba_adi', 'pen', 'alt_barkod']
-
+        
         # En boy oranı kontrolü
         for dct in [dct for dct in detections if dct["class"] == 0]:
             oran = dct["bbox"][3] / dct["bbox"][4]
