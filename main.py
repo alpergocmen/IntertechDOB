@@ -107,7 +107,7 @@ class KimlikTespit:
         self.df = pd.DataFrame(columns=["class", "label", "base64"])
 
     # Barkod eşleştirme
-    def match_barcode(self):
+    def match_barcode(self, dtf):
         def read_barcode_from_base64(base64_image):
             image_data = base64.b64decode(base64_image)
             image_stream = BytesIO(image_data)
@@ -122,16 +122,16 @@ class KimlikTespit:
                 print("Barkod Okunamadı")
             return barcode_data
 
-        base64_image = self.df.loc[self.df["label"] == "barkod", "base64"].iloc[0]
+        base64_image = dtf.loc[dtf["label"] == "barkod", "base64"].iloc[0]
         a = read_barcode_from_base64(base64_image)
 
-        if self.df.loc[self.df["label"] == "tckn", "text"].iloc[0] == a:
+        if dtf.loc[dtf["label"] == "tckn", "text"].iloc[0] == a:
             return True
         else:
             return False
 
     # Kimlikteki bilgieri çıkarıp df'e yaz
-    def extract_text(self):
+    def extract_text(self, dtf):
         pytesseract.pytesseract.tesseract_cmd = "pyteserract/tesseract.exe"
 
         def base64_to_img(base64_img):
@@ -163,20 +163,20 @@ class KimlikTespit:
             return extracted_text
 
         class_list = ["isim", "dogum", "tckn", "serino", "soyad", "cinsiyet", "baba_adi", "anne_adi", "pen"]
-        self.df["text"] = np.NaN
+        dtf["text"] = np.NaN
         for i in class_list:
-            b64 = self.df[self.df["label"] == i]["base64"].iloc[0]
+            b64 = dtf[dtf["label"] == i]["base64"].iloc[0]
             image = base64_to_img(b64)
             extracted_text = extract_text_from_image(image)
-            self.df.loc[self.df["label"] == i, "text"] = extracted_text
-        self.df["text"] = self.df["text"].str.strip("\n")
+            dtf.loc[dtf["label"] == i, "text"] = extracted_text
+        dtf["text"] = dtf["text"].str.strip("\n")
 
-        if validate_tckn(self.df[self.df["label"] == "tckn"]["text"].iloc[0]):
+        if validate_tckn(dtf[dtf["label"] == "tckn"]["text"].iloc[0]):
             print("Geçerli TCKN")
         else:
             print("Geçersiz TCKN")
 
-        return self.df
+        return dtf
 
     def set_weight_source(self, x, y):
         self.weights = x
@@ -235,40 +235,42 @@ class KimlikTespit:
                 self.df.loc[row_count + idx] = [detection["class"], detection["label"], detection["cropped_base64"]]
         return True
 
-    # Face Matcher
-    def yuz_kontrol(self, p_photo):
-        base64_image2 = self.df[self.df['label'] == 'fotograf']['base64'].iloc[0]
 
-        # Decode base64 strings to binary image data
-        image1_data = base64.b64decode(p_photo)
-        image2_data = base64.b64decode(base64_image2)
 
-        # Convert binary data to PIL Image objects
-        image1 = Image.open(BytesIO(image1_data))
-        image2 = Image.open(BytesIO(image2_data))
+# Face Matcher
+def yuz_kontrol(df, p_photo):
+    base64_image2 = df[df['label'] == 'fotograf']['base64'].iloc[0]
 
-        image1_path = "temp_image1.jpg"
-        image2_path = "temp_image2.jpg"
-        image1.save(image1_path)
-        image2.save(image2_path)
+    # Decode base64 strings to binary image data
+    image1_data = base64.b64decode(p_photo)
+    image2_data = base64.b64decode(base64_image2)
 
-        # Perform the verification using DeepFace
-        result = DeepFace.verify(image1_path, image2_path, model_name="ArcFace")
+    # Convert binary data to PIL Image objects
+    image1 = Image.open(BytesIO(image1_data))
+    image2 = Image.open(BytesIO(image2_data))
 
-        # Clean up temporary files
-        image1.close()
-        image2.close()
+    image1_path = "temp_image1.jpg"
+    image2_path = "temp_image2.jpg"
+    image1.save(image1_path)
+    image2.save(image2_path)
 
-        # You can remove the temporary files here using os.remove()
-        os.remove(image1_path)
-        os.remove(image2_path)
+    # Perform the verification using DeepFace
+    result = DeepFace.verify(image1_path, image2_path, model_name="ArcFace")
 
-        return result["verified"]
+    # Clean up temporary files
+    image1.close()
+    image2.close()
 
-        # # Karşılaştırma yapılacak iki resmi belirtin
-        # id_photo = self.df[self.df['label'] == 'fotograf']['base64'].iloc[0]
-        #
-        # # Yüz karşılaştırma işlemini gerçekleştir
-        # result = DeepFace.verify(id_photo, present_photo, model_name="ArcFace")
-        #
-        # return result
+    # You can remove the temporary files here using os.remove()
+    os.remove(image1_path)
+    os.remove(image2_path)
+    result = bool(result["verified"])
+
+    return result
+    # # Karşılaştırma yapılacak iki resmi belirtin
+    # id_photo = self.df[self.df['label'] == 'fotograf']['base64'].iloc[0]
+    #
+    # # Yüz karşılaştırma işlemini gerçekleştir
+    # result = DeepFace.verify(id_photo, present_photo, model_name="ArcFace")
+    #
+    # return result

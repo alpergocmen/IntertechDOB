@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from main import KimlikTespit, img_save
+from main import KimlikTespit, img_save, yuz_kontrol
 import pandas as pd
 import os
 import json
@@ -17,15 +17,13 @@ def process_photo():
             return jsonify({'error': 'Face image data is missing.'}), 400
         
         df_concat = pd.read_csv("df_concat.csv")
-        kimlik_tespit = KimlikTespit("weights/arkayuz_weight.pt","")
-        kimlik_tespit.df = df_concat
+        yuz_kontrol_sonuc = yuz_kontrol(df_concat, yuz_image)
         
-        yuz_kontrol_sonuc = bool(kimlik_tespit.yuz_kontrol(yuz_image))
-
         response = {
-            'yuz_kontrol_sonuc': yuz_kontrol_sonuc  # No need for json.dumps() here
+            'yuz_kontrol_sonuc': yuz_kontrol_sonuc
         }
         
+        os.remove("df.csv")
         os.remove("df_concat.csv")
         return jsonify(response), 200
     
