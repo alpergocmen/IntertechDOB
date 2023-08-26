@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import { StyleSheet, View, Pressable, Text, TouchableHighlight } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import UserName from "../components/UserName";
@@ -39,9 +39,10 @@ const Login = () => {
         statusBarDarkTop={0}
         statusBarDarkLeft={0}
       />
-      <UserName kullaniciAdi="Şifre" propTop={376} />
+     
       <UserName kullaniciAdi="Kullanıcı Adı" />
-      <DevamEt
+      {/* <DevamEt
+        dEVAMET={"Devam Et"}
         propMarginTop="unset"
         propMarginLeft="unset"
         propTop1="0%"
@@ -57,7 +58,37 @@ const Login = () => {
         propBorderRadius1={50}
         propBackgroundColor1="rgba(255, 255, 255, 0.5)"
         onDevamEtPress={() => navigation.navigate("KvkkPage")}
-      />
+      /> */}
+      // Değişti.
+      <TouchableHighlight
+      style={{
+        backgroundColor: '#CAD5E2',
+        borderRadius: 12.5,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        top: "20%",
+        left: "25%",
+        width: "40%",
+        height: "6%"
+      }}
+      underlayColor="#0000ff"
+      onPress={() => navigation.navigate("KvkkPage")}
+    >
+      <Text
+        style={{
+          color: "black",
+          //fontSize: 10,
+          textAlign: 'center',
+          fontSize: FontSize.size_4xl,
+          lineHeight: 25,
+          fontWeight: "500",
+          fontFamily: FontFamily.interMedium,
+          color: Color.white,
+        }}
+      >
+        Devam Et
+      </Text>
+    </TouchableHighlight>
       <Text style={styles.ifremiUnuttum}>Şifremi Unuttum</Text>
       <Component2 />
       <View style={styles.loginChild} />
@@ -120,20 +151,23 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   ifremiUnuttum: {
-    top: 414,
-    left: 231,
+    marginTop: "107.5%",
+    marginLeft: "55%",
+    //top: 414,
+    //left: 231,
     fontSize: FontSize.size_3xs,
     textDecoration: "underline",
     lineHeight: 20,
-    fontWeight: "500",
+    fontWeight: "50",
     fontFamily: FontFamily.interMedium,
     color: Color.white,
-    textAlign: "left",
     display: "flex",
     alignItems: "center",
-    width: 125,
+    //width: 125,
+    width: "15%",
     height: 18,
     position: "absolute",
+    
   },
   loginChild: {
     top: 450,
