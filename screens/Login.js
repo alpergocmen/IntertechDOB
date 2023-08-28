@@ -23,13 +23,13 @@ const Login = () => {
           <View style={styles.component1Child} />
           <Image
             style={styles.component1Item}
-            contentFit="cover"
+            contentFit="contain"
             source={require("../assets/arrow-1.png")}
           />
         </View>
         <Image
           style={[styles.logo1Icon, styles.logo1IconPosition]}
-          contentFit="cover"
+          contentFit="contain"
           source={require("../assets/logo-1.png")}
         />
       </View>
@@ -40,58 +40,43 @@ const Login = () => {
         statusBarDarkLeft={0}
       />
      
-      <UserName kullaniciAdi="Kullanıcı Adı" />
-      {/* <DevamEt
-        dEVAMET={"Devam Et"}
-        propMarginTop="unset"
-        propMarginLeft="unset"
-        propTop1="0%"
-        propLeft1="0%"
-        propFontWeight="unset"
-        propFontFamily="unset"
-        propColor="unset"
-        propTextAlign="unset"
-        propHeight1="87.72%"
-        propWidth1="100%"
-        propRight1="0%"
-        propBottom1="12.28%"
-        propBorderRadius1={50}
-        propBackgroundColor1="rgba(255, 255, 255, 0.5)"
-        onDevamEtPress={() => navigation.navigate("KvkkPage")}
-      /> */}
-      // Değişti.
+      
+      <UserName/>
+      
+      
       <TouchableHighlight
       style={{
-        backgroundColor: '#CAD5E2',
-        borderRadius: 12.5,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        top: "20%",
-        left: "25%",
-        width: "40%",
-        height: "6%"
+        flex: 0.33,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: "7.5%",
+        marginTop: "20%",
+        marginLeft: "30%",
+        marginRight: "30%",
+        marginBottom: "15%",
+        backgroundColor: Color.basicLightBG,
+        borderRadius: Border.br_31xl,
+        backgroundColor: Color.gray,
       }}
-      underlayColor="#0000ff"
       onPress={() => navigation.navigate("KvkkPage")}
     >
-      <Text
-        style={{
-          color: "black",
-          //fontSize: 10,
-          textAlign: 'center',
-          fontSize: FontSize.size_4xl,
-          lineHeight: 25,
-          fontWeight: "500",
-          fontFamily: FontFamily.interMedium,
-          color: Color.white,
-        }}
+      <Text 
+      style={{
+        textAlign: "center",
+        color: Color.black,
+        fontSize: FontSize.size_4xl,
+        lineHeight: 30,
+        fontWeight: "500",
+        color: Color.white,
+        fontFamily: FontFamily.interMedium,
+      }}
       >
         Devam Et
       </Text>
     </TouchableHighlight>
-      <Text style={styles.ifremiUnuttum}>Şifremi Unuttum</Text>
+     
       <Component2 />
-      <View style={styles.loginChild} />
+     
     </View>
   );
 };
@@ -102,14 +87,13 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   logo1IconPosition: {
-    height: 47,
+    height:"100%",
     top: 5,
     position: "absolute",
   },
   blueAbstractBackgroundNewGIcon: {
-    top: 0,
-    width: 375,
-    height: 812,
+    width: "100%",
+    height: "100%",
   },
   component1Child: {
     height: "100%",
@@ -124,16 +108,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   component1Item: {
-    height: "47%",
-    width: "58.65%",
-    top: "25.43%",
-    right: "23.53%",
-    bottom: "27.56%",
-    left: "17.82%",
-    maxWidth: "100%",
-    maxHeight: "100%",
-    position: "absolute",
-    overflow: "hidden",
+    width: "70%",
+    height: undefined,
+    aspectRatio: 1,
+    top: "35%",
+    right: "20%",
   },
   component1: {
     left: 19,
@@ -141,44 +120,24 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   logo1Icon: {
-    left: 82,
-    width: 210,
+    alignSelf: "center",
+    width: "70%",
+    height: undefined,
+    aspectRatio: 1,
+    marginBottom: "5%"
   },
   header: {
-    top: 44,
-    width: 311,
-    height: 57,
+    top:"2.5%",
+    width: "100%",
+    height: "10%",
     overflow: "hidden",
-  },
-  ifremiUnuttum: {
-    marginTop: "107.5%",
-    marginLeft: "55%",
-    //top: 414,
-    //left: 231,
-    fontSize: FontSize.size_3xs,
-    textDecoration: "underline",
-    lineHeight: 20,
-    fontWeight: "50",
-    fontFamily: FontFamily.interMedium,
-    color: Color.white,
-    display: "flex",
-    alignItems: "center",
-    //width: 125,
-    width: "15%",
-    height: 18,
-    position: "absolute",
+    alignSelf: "center",
+    paddingHorizontal: 20,
+    flex: 2,
     
   },
-  loginChild: {
-    top: 450,
-    left: 65,
-    borderStyle: "solid",
-    borderColor: "#fff",
-    borderTopWidth: 1,
-    width: 246,
-    height: 1,
-    position: "absolute",
-  },
+  
+  
   login: {
     backgroundColor: Color.basicLightBG,
     flex: 1,

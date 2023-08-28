@@ -1,60 +1,82 @@
-import React, { useMemo } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 
-const getStyleValue = (key, value) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
-const UserName = ({ kullaniciAdi, propTop }) => {
-  const userNameStyle = useMemo(() => {
-    return {
-      ...getStyleValue("top", propTop),
-    };
-  }, [propTop]);
-
+const UserName = () => {
+  
   return (
-    <View style={[styles.username, userNameStyle]}>
-      <View
-        style={[styles.kullaniciadirectangle, styles.kullaniciadiPosition]}
-      />
-      <Text style={[styles.kullaniciadi, styles.kullaniciadiPosition]}>
-        {kullaniciAdi}
-      </Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+     
+        <View style={styles.twoInputs}>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.input} placeholder="İsim" editable={false} />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.input} placeholder="Şifre" editable={false}/>
+        </View>
+        </View>
+        <View style={styles.centerContainer}>
+          <Text style={styles.ifremiUnuttum}>Şifremi Unuttum</Text>
+        </View>
+        <View style={styles.loginChild} />
+    
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  kullaniciadiPosition: {
-    left: "0%",
-    top: "0%",
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-  },
-  kullaniciadirectangle: {
-    right: "0%",
-    bottom: "0%",
-    borderRadius: Border.br_3xs,
-    backgroundColor: Color.white,
-  },
-  kullaniciadi: {
-    fontSize: FontSize.size_mini,
-    lineHeight: 20,
-    fontWeight: "500",
-    fontFamily: FontFamily.interMedium,
-    color: Color.darkgray,
-    textAlign: "left",
-    display: "flex",
+  container: {
+    
+    marginTop: "50%", // Adjust the marginTop for spacing
     alignItems: "center",
+    justifyContent: "center",
+    height: "40%",
   },
-  username: {
-    top: 327,
-    left: 65,
-    width: 245,
-    height: 30,
+  twoInputs: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: "7.5%",
+  },
+  inputContainer: {
+    width: "60%",
+    marginVertical: "2%", // Adjust the vertical margin for spacing
+    
+  },
+  input: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    paddingHorizontal: "6%", 
+    paddingVertical: "1.5%", 
+    fontSize: 15,
+    
+  },
+
+  loginChild: {
+    alignSelf: "center",
+    top: "87.5%",
+    borderStyle: "solid",
+    borderColor: "#fff",
+    borderTopWidth: 1,
+    width: 246,
+    height: 1,
     position: "absolute",
+  },
+  centerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: "2%",
+  },
+  ifremiUnuttum: {
+    
+    color: Color.white,
+    fontFamily: FontFamily.interMedium,
+    fontSize: FontSize.size_3xs,
+    width: "auto",
+    marginLeft: "42.5%",
+    marginTop: "1.25%",
+    lineHeight: 20,
   },
 });
 
