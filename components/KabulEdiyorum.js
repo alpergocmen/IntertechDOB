@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, SafeAreaView } from "react-native";
 import { CheckBox } from "@rneui/themed";
 import { FontSize, FontFamily, Color } from "../GlobalStyles";
-
+import KvkkInfoBox from "../components/KvkkInfoBox";
 const KabulEdiyorum = () => {
   const [rectangleCheckboxchecked, setRectangleCheckboxchecked] =
     useState(false);
 
   return (
+    <SafeAreaView style={styles.safearea}>
+      <KvkkInfoBox/>
     <View style={styles.kabulEdiyorum}>
       <Text style={styles.kvkkAydnlanmaMetnini}>
         KVKK Aydınlanma metnini okudum ve kabul ediyorum.
@@ -20,20 +22,23 @@ const KabulEdiyorum = () => {
         containerStyle={styles.rectangleCheckboxLayout}
       />
     </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safearea: {
+    flex: 1,
+  },
   rectangleCheckboxLayout: {
     backgroundColor: "transparent",
     padding: 0,
-    left: "0%",
-    right: "92.34%",
-    top: "9.76%",
-    bottom: "41.46%",
-    position: "absolute",
+    alignItems: "center",
+    marginRight: "85%",
+    marginTop: "2.5%"
   },
   kvkkAydnlanmaMetnini: {
+
     height: "95.12%",
     width: "86.97%",
     top: "4.88%",
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   kabulEdiyorum: {
-    top: 393,
+    top: "75%",
     left: 71,
     width: 261,
     height: 41,

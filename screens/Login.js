@@ -136,8 +136,6 @@ const styles = StyleSheet.create({
     flex: 2,
     
   },
-  
-  
   login: {
     backgroundColor: Color.basicLightBG,
     flex: 1,

@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Pressable, View, Text, Linking } from "react-native";
+import { StyleSheet, Pressable, View, Text, TouchableHighlight } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import KabulEdiyorum from "../components/KabulEdiyorum";
 import DevamEt from "../components/DevamEt";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
+
 
 const KvkkPage = () => {
   const navigation = useNavigation();
@@ -25,13 +26,13 @@ const KvkkPage = () => {
           <View style={styles.component1Child} />
           <Image
             style={styles.component1Item}
-            contentFit="cover"
+            contentFit="contain"
             source={require("../assets/arrow-1.png")}
           />
         </Pressable>
         <Image
           style={[styles.logo1Icon, styles.logo1IconPosition]}
-          contentFit="cover"
+          contentFit="contain"
           source={require("../assets/logo-1.png")}
         />
       </View>
@@ -42,18 +43,34 @@ const KvkkPage = () => {
         statusBarDarkLeft={0}
       />
       <KabulEdiyorum />
-      <Pressable
-        style={styles.kvkkAydnlatmaMetniContainer}
-        onPress={() =>
-          Linking.openURL("https://www.nvi.gov.tr/kvkk-aydinlatma-metni")
-        }
+      
+      <TouchableHighlight
+      style={{
+        flex: 0.10,
+        alignItems: "center",
+        justifyContent: "center",
+        margin: 100,
+        padding: 0,
+        backgroundColor: Color.basicLightBG,
+        borderRadius: Border.br_31xl,
+        backgroundColor: Color.gray,
+      }}
+      onPress={() => navigation.navigate("Info")}
       >
-        <Text style={styles.kvkkAydnlatmaMetni}>KVKK Aydınlatma Metni</Text>
-      </Pressable>
-      <DevamEt
-        dEVAMET="DEVAM ET"
-        onDevamEtPress={() => navigation.navigate("Info")}
-      />
+        <Text 
+      style={{
+        textAlign: "center",
+        color: Color.black,
+        fontSize: FontSize.size_4xl,
+        lineHeight: 30,
+        fontWeight: "500",
+        color: Color.white,
+        fontFamily: FontFamily.interMedium,
+      }}
+      >
+        Devam Et
+      </Text>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -64,14 +81,13 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   logo1IconPosition: {
-    height: 47,
+    height:"100%",
     top: 5,
     position: "absolute",
   },
   blueAbstractBackgroundNewGIcon: {
-    top: 0,
-    width: 375,
-    height: 812,
+    width: "100%",
+    height: "100%",
   },
   component1Child: {
     height: "100%",
@@ -86,31 +102,33 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   component1Item: {
-    height: "47%",
-    width: "58.65%",
-    top: "25.43%",
-    right: "23.53%",
-    bottom: "27.56%",
-    left: "17.82%",
-    maxWidth: "100%",
-    maxHeight: "100%",
-    position: "absolute",
-    overflow: "hidden",
+    width: "70%",
+    height: undefined,
+    aspectRatio: 1,
+    top: "35%",
+    right: "20%",
   },
   component1: {
+    
     left: 19,
     width: 40,
     opacity: 0.5,
   },
   logo1Icon: {
-    left: 82,
-    width: 210,
+    alignSelf: "center",
+    width: "70%",
+    height: undefined,
+    aspectRatio: 1,
+    marginBottom: "5%"
   },
   header: {
-    top: 44,
-    width: 311,
-    height: 57,
+    top:"2.5%",
+    width: "100%",
+    height: "10%",
     overflow: "hidden",
+    alignSelf: "center",
+    paddingHorizontal: 20,
+    flex: 2,
   },
   kvkkAydnlatmaMetni: {
     fontSize: FontSize.size_base,
