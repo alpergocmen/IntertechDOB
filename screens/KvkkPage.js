@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     right: "20%",
   },
   component1: {
-    
     left: 19,
     width: 40,
     opacity: 0.5,

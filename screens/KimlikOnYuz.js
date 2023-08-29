@@ -67,7 +67,8 @@ const KimlikOnYuz = () => {
 
 const styles = StyleSheet.create({
   statusBarDarkPosition1: {
-    width: 375,
+    width: "100%",
+    height: "100%",
     top: 0,
     left: 0,
   },
@@ -81,8 +82,8 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   blueAbstractBackgroundNewGIcon: {
-    position: "absolute",
-    height: 812,
+    width: "100%",
+    height: "100%",
   },
   component1Child: {
     height: "100%",
@@ -149,16 +150,17 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   kimlikNYz: {
-    top: 337,
-    left: 355,
+    top: "50%",
+    left: "70%",
     fontSize: FontSize.size_xl,
-    lineHeight: 20,
+    lineHeight: 25,
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
     color: Color.white,
     textAlign: "center",
-    width: 138,
-    height: 20,
+    width: 150,
+    height: 44,
+    margin: 5,
     transform: [
       {
         rotate: "90deg",

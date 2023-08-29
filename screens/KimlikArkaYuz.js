@@ -19,7 +19,6 @@ const KimlikArkaYuz = () => {
         contentFit="cover"
         source={require("../assets/blue-abstract-background-new-generated-1.png")}
       />
-      <Text style={styles.kimlikArkaYz}>Kimlik Arka Yüz</Text>
       <View style={styles.header}>
         <Pressable
           style={[styles.component1, styles.logo1IconPosition]}
@@ -58,12 +57,15 @@ const KimlikArkaYuz = () => {
       />
       <View style={styles.cameraScreen} />
       <View style={styles.areaForIdCard} />
+      <Text style={styles.kimlikNYz}>Kimlik Arka Yüz</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   statusBarDarkPosition1: {
+    width: "100%",
+    height: "100%",
     width: 375,
     top: 0,
     left: 0,
@@ -78,8 +80,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   blueAbstractBackgroundNewGIcon: {
-    position: "absolute",
-    height: 812,
+    borderColor: "black",
+    borderWidth: 3,
+    width: "100%",
+    height: "100%",
   },
   kimlikArkaYz: {
     top: 325,
@@ -161,6 +165,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 225,
     height: 375,
+    position: "absolute",
+  },
+  kimlikNYz: {
+    top: "50%",
+    left: "70%",
+    fontSize: FontSize.size_xl,
+    lineHeight: 25,
+    fontWeight: "500",
+    fontFamily: FontFamily.interMedium,
+    color: Color.white,
+    textAlign: "center",
+    width: 150,
+    height: 44,
+    margin: 5,
+    transform: [
+      {
+        rotate: "90deg",
+      },
+    ],
     position: "absolute",
   },
   kimlikArkaYuz: {
