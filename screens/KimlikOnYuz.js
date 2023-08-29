@@ -11,9 +11,42 @@ import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
 import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
+import { Camera } from 'expo-camera';
+import { useState, useRef, useEffect } from 'react';
 
 const KimlikOnYuz = () => {
   const navigation = useNavigation();
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const cameraRef = useRef(null);
+
+  const takePhoto = async () => {
+    try {
+      if (cameraRef.current) {
+        const options = { quality: 0.5, base64: true, exif: false };
+        const photo = await cameraRef.current.takePictureAsync(options); 
+        const photoPath = photo.uri;
+        
+        uploadImage(photoPath);
+      }
+    } catch (error) {
+        console.error('Error taking the photo.');
+      }
+  }
+  const uploadImage = async (photoPath) => {
+    const photoData = new FormData();
+    photoData.append("file", {uri: photoPath, name:'image.jpg', filename: 'image', type: 'image/jpg'});
+    console.log("Form Data:", photoData);
+    
+    //sendPhotoToAPI(photoData)
+  }
+  const toggleCameraType = () => {
+    setType(
+      type === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+    console.log(Camera.Type);
+  };
 
   return (
     <View style={styles.kimlikOnYuz}>
@@ -53,12 +86,15 @@ const KimlikOnYuz = () => {
         contentFit="cover"
         source={require("../assets/status-bar--dark2.png")}
       />
-      <TakeAShoot onTakeAShootPress={() => {}} />
+      <TakeAShoot onTakeAShootPress={takePhoto} />
       <GoForward
         imagePlaceholderText={require("../assets/arrow-2.png")}
         onGoForwardPress={() => navigation.navigate("LandingPageTrueOnYuz")}
       />
-      <View style={styles.cameraScreen} />
+      <View style={styles.cameraScreen} > 
+          <Camera style={styles.camera} type={type} ref={cameraRef}>
+          </Camera>
+      </View>
       <View style={styles.areaForIdCard} />
       <Text style={styles.kimlikNYz}>Kimlik Ön Yüz</Text>
     </View>
@@ -137,6 +173,10 @@ const styles = StyleSheet.create({
     height: 500,
     left: 19,
     position: "absolute",
+  },
+  camera: {
+    position: 'absolute',
+    flex: 1,
   },
   areaForIdCard: {
     top: 219,
