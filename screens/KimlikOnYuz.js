@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   blueAbstractBackgroundNewGIcon: {
+    borderColor: "black",
+    borderWidth: 3,
     width: "100%",
     height: "100%",
   },

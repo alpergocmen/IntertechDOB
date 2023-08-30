@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   statusBarDarkPosition1: {
     width: "100%",
     height: "100%",
-    width: 375,
     top: 0,
     left: 0,
   },

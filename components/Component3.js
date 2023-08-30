@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   grmeyiBalat: {
     height: "68.57%",
     width: "82.53%",
-    top: "15.71%",
+    top: "35.71%",
     left: "8.73%",
     fontSize: FontSize.size_lg,
     lineHeight: 20,
