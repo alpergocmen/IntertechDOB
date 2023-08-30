@@ -51,10 +51,7 @@ const KimlikOnYuz = () => {
   return (
     <View style={styles.kimlikOnYuz}>
       <Image
-        style={[
-          styles.blueAbstractBackgroundNewGIcon,
-          styles.statusBarDarkPosition1,
-        ]}
+        style={[styles.blueAbstractBackgroundNewGIcon, styles.backLayer]} // Apply backLayer style
         contentFit="cover"
         source={require("../assets/blue-abstract-background-new-generated-1.png")}
       />
@@ -91,9 +88,8 @@ const KimlikOnYuz = () => {
         imagePlaceholderText={require("../assets/arrow-2.png")}
         onGoForwardPress={() => navigation.navigate("LandingPageTrueOnYuz")}
       />
-      <View style={styles.cameraScreen} > 
-          <Camera style={styles.camera} type={type} ref={cameraRef}>
-          </Camera>
+      <View style={styles.cameraScreen}>
+        <Camera style={styles.camera} type={type} ref={cameraRef} />
       </View>
       <View style={styles.areaForIdCard} />
       <Text style={styles.kimlikNYz}>Kimlik Ön Yüz</Text>
@@ -102,6 +98,12 @@ const KimlikOnYuz = () => {
 };
 
 const styles = StyleSheet.create({
+  backLayer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 0, // Set a lower zIndex to move it to the back
+  },
   statusBarDarkPosition1: {
     width: "100%",
     height: "100%",
@@ -177,7 +179,6 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   camera: {
-    position: 'absolute',
     flex: 1,
   },
   areaForIdCard: {

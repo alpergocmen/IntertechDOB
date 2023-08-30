@@ -1,10 +1,18 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, Pressable, View } from "react-native";
+import {
+  StyleSheet,
+  Pressable,
+  View,
+  TouchableHighlight,
+  Text,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
 import GoForward from "../components/GoForward";
-import { FontSize, FontFamily, Color, Border } from "../GlobalStyles";
+import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
+import { Camera } from 'expo-camera';
+import { useState, useRef, useEffect } from 'react';
 
 const KimlikArkaYuz = () => {
   const navigation = useNavigation();
@@ -12,10 +20,7 @@ const KimlikArkaYuz = () => {
   return (
     <View style={styles.kimlikArkaYuz}>
       <Image
-        style={[
-          styles.blueAbstractBackgroundNewGIcon,
-          styles.statusBarDarkPosition1,
-        ]}
+        style={[styles.blueAbstractBackgroundNewGIcon, styles.backLayer]} // Apply backLayer style
         contentFit="cover"
         source={require("../assets/blue-abstract-background-new-generated-1.png")}
       />
@@ -55,7 +60,9 @@ const KimlikArkaYuz = () => {
         propLeft1="19%"
         onGoForwardPress={() => navigation.navigate("LandingPageTrueArkaYuz")}
       />
-      <View style={styles.cameraScreen} />
+      <View style={styles.cameraScreen}>
+        <Camera style={styles.camera} type={type} ref={cameraRef} />
+      </View>
       <View style={styles.areaForIdCard} />
       <Text style={styles.kimlikNYz}>Kimlik Arka Yüz</Text>
     </View>
@@ -63,6 +70,12 @@ const KimlikArkaYuz = () => {
 };
 
 const styles = StyleSheet.create({
+  backLayer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 0, // Set a lower zIndex to move it to the back
+  },
   statusBarDarkPosition1: {
     width: "100%",
     height: "100%",
@@ -154,6 +167,9 @@ const styles = StyleSheet.create({
     height: 500,
     left: 19,
     position: "absolute",
+  },
+  camera: {
+    flex: 1,
   },
   areaForIdCard: {
     top: 219,
