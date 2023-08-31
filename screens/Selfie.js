@@ -1,19 +1,57 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import {
+  StyleSheet,
+  Pressable,
+  View,
+  TouchableHighlight,
+  Text,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import StatusBarDark from "../components/StatusBarDark";
 import TakeAShoot from "../components/TakeAShoot";
 import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
+import { Camera } from 'expo-camera';
+import { useState, useRef, useEffect } from 'react';
 
 const Selfie = () => {
   const navigation = useNavigation();
+  const [type, setType] = useState(Camera.Constants.Type.front);
+  const cameraRef = useRef(null);
 
+  const takePhoto = async () => {
+    try {
+      if (cameraRef.current) {
+        const options = { quality: 0.5, base64: true, exif: false };
+        const photo = await cameraRef.current.takePictureAsync(options); 
+        const photoPath = photo.uri;
+        
+        uploadImage(photoPath);
+      }
+    } catch (error) {
+        console.error('Error taking the photo.');
+      }
+  }
+  const uploadImage = async (photoPath) => {
+    const photoData = new FormData();
+    photoData.append("file", {uri: photoPath, name:'image.jpg', filename: 'image', type: 'image/jpg'});
+    console.log("Form Data:", photoData);
+    
+    //sendPhotoToAPI(photoData)
+  }
+  const toggleCameraType = () => {
+    setType(
+      type === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+    console.log(Camera.Type);
+  };
+  
   return (
     <View style={styles.selfie}>
       <Image
-        style={[styles.blueAbstractBackgroundNewGIcon, styles.headerPosition]}
+        style={[styles.blueAbstractBackgroundNewGIcon, styles.backLayer]} // Apply backLayer style
         contentFit="cover"
         source={require("../assets/blue-abstract-background-new-generated-1.png")}
       />
@@ -35,12 +73,6 @@ const Selfie = () => {
           source={require("../assets/logo-1.png")}
         />
       </View>
-      <StatusBarDark
-        statusBarDarkStatusBarDar={require("../assets/status-bar--dark2.png")}
-        statusBarDarkPosition="absolute"
-        statusBarDarkTop={0}
-        statusBarDarkLeft={0}
-      />
       <TakeAShoot onTakeAShootPress={() => {}} />
       <GoForward
         imagePlaceholderText={require("../assets/arrow-2.png")}
@@ -52,13 +84,41 @@ const Selfie = () => {
         propLeft1="19%"
         onGoForwardPress={() => navigation.navigate("LandingPage2")}
       />
-      <Text style={styles.kimlikArkaYz}>Ön Kamera</Text>
-      <View style={styles.cameraScreen} />
+      <Text style={styles.OnKamera}>Ön Kamera</Text>
+      <View style={styles.cameraScreenContainer}>
+      <Camera
+        style={styles.cameraScreen} // Use styles.cameraScreen
+        type={type}
+        ref={cameraRef}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  backLayer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 0, // Set a lower zIndex to move it to the back
+  },
+  statusBarDark: {
+    height: 44,
+    width: 375,
+    top: 0,
+    left: 0,
+  },
+  statusBarDarkPosition1: {
+    width: "100%",
+    height: "100%",
+    top: 0,
+    left: 0,
+  },
+  statusBarDarkPosition: {
+    display: "none",
+    position: "absolute",
+  },
   headerPosition: {
     left: 0,
     position: "absolute",
@@ -111,7 +171,7 @@ const styles = StyleSheet.create({
     height: 57,
     overflow: "hidden",
   },
-  kimlikArkaYz: {
+  OnKamera: {
     top: 135,
     left: 113,
     fontSize: FontSize.size_xl,
@@ -124,20 +184,24 @@ const styles = StyleSheet.create({
     height: 20,
     position: "absolute",
   },
-  cameraScreen: {
-    top: 172,
-    left: 38,
-    backgroundColor: Color.black,
-    width: 300,
-    height: 500,
-    position: "absolute",
-  },
   selfie: {
     backgroundColor: Color.basicLightBG,
     flex: 1,
+    justifyContent: "center", // Center content vertically
+    alignItems: "center", // Center content horizontally
     overflow: "hidden",
-    height: 812,
-    width: "100%",
+  },
+
+  cameraScreenContainer: {
+    width: "80%", // Use percentage-based width
+    aspectRatio: 3 / 4, // Maintain the aspect ratio (width / height)
+    borderRadius: 10, // Rounded corners
+    overflow: "hidden",
+  },
+
+  cameraScreen: {
+    width: "100%", // Use 100% width to match the container
+    height: "100%", // Use 100% height to match the container
   },
 });
 

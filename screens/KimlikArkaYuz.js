@@ -16,6 +16,37 @@ import { useState, useRef, useEffect } from 'react';
 
 const KimlikArkaYuz = () => {
   const navigation = useNavigation();
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const cameraRef = useRef(null);
+
+  const takePhoto = async () => {
+    try {
+      if (cameraRef.current) {
+        const options = { quality: 0.5, base64: true, exif: false };
+        const photo = await cameraRef.current.takePictureAsync(options); 
+        const photoPath = photo.uri;
+        
+        uploadImage(photoPath);
+      }
+    } catch (error) {
+        console.error('Error taking the photo.');
+      }
+  }
+  const uploadImage = async (photoPath) => {
+    const photoData = new FormData();
+    photoData.append("file", {uri: photoPath, name:'image.jpg', filename: 'image', type: 'image/jpg'});
+    console.log("Form Data:", photoData);
+    
+    //sendPhotoToAPI(photoData)
+  }
+  const toggleCameraType = () => {
+    setType(
+      type === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+    console.log(Camera.Type);
+  };
 
   return (
     <View style={styles.kimlikArkaYuz}>
@@ -25,19 +56,22 @@ const KimlikArkaYuz = () => {
         source={require("../assets/blue-abstract-background-new-generated-1.png")}
       />
       <View style={styles.header}>
-        <Pressable
+        <TouchableHighlight
           style={[styles.component1, styles.logo1IconPosition]}
-          onPress={() => navigation.navigate("KimlikOnYuz")}
+          underlayColor="#fff"
+          onPress={() => navigation.navigate("Info")}
         >
-          <View
-            style={[styles.component1Child, styles.statusBarDarkPosition]}
-          />
-          <Image
-            style={styles.component1Item}
-            contentFit="cover"
-            source={require("../assets/arrow-1.png")}
-          />
-        </Pressable>
+          <>
+            <View
+              style={[styles.component1Child, styles.statusBarDarkPosition]}
+            />
+            <Image
+              style={styles.component1Item}
+              contentFit="cover"
+              source={require("../assets/arrow-1.png")}
+            />
+          </>
+        </TouchableHighlight>
         <Image
           style={[styles.logo1Icon, styles.logo1IconPosition]}
           contentFit="cover"
@@ -49,22 +83,16 @@ const KimlikArkaYuz = () => {
         contentFit="cover"
         source={require("../assets/status-bar--dark2.png")}
       />
-      <TakeAShoot onTakeAShootPress={() => {}} />
+      <TakeAShoot onTakeAShootPress={takePhoto} />
       <GoForward
         imagePlaceholderText={require("../assets/arrow-2.png")}
-        propTop={689}
-        propLeft={202}
-        propTop1="34.22%"
-        propRight="19.5%"
-        propBottom="34.22%"
-        propLeft1="19%"
         onGoForwardPress={() => navigation.navigate("LandingPageTrueArkaYuz")}
       />
       <View style={styles.cameraScreen}>
         <Camera style={styles.camera} type={type} ref={cameraRef} />
       </View>
       <View style={styles.areaForIdCard} />
-      <Text style={styles.kimlikNYz}>Kimlik Arka Yüz</Text>
+      <Text style={styles.kimlikRYz}>Kimlik Arka Yüz</Text>
     </View>
   );
 };
@@ -96,24 +124,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: "100%",
     height: "100%",
-  },
-  kimlikArkaYz: {
-    top: 325,
-    left: 355,
-    fontSize: FontSize.size_xl,
-    lineHeight: 20,
-    fontWeight: "500",
-    fontFamily: FontFamily.interMedium,
-    color: Color.white,
-    textAlign: "center",
-    width: 162,
-    height: 20,
-    transform: [
-      {
-        rotate: "90deg",
-      },
-    ],
-    position: "absolute",
   },
   component1Child: {
     height: "100%",
@@ -182,7 +192,7 @@ const styles = StyleSheet.create({
     height: 375,
     position: "absolute",
   },
-  kimlikNYz: {
+  kimlikRYz: {
     top: "50%",
     left: "70%",
     fontSize: FontSize.size_xl,
