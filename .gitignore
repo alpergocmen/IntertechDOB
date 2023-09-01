@@ -1,5 +1,4 @@
-idvision_env
-Dockerfile_old
-requirements_old.txt
+myenv
 node_modules
 .expo
+.ipynb_checkpoint

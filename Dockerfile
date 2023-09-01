@@ -9,6 +9,8 @@ RUN pip install -r requirements.txt
 RUN apt-get update -y
 RUN apt-get install -y libgl1 libglib2.0-0 libsm6 libxrender1 libxext6
 RUN apt-get install -y zbar-tools
+RUN apt-get install -y tesseract-ocr
+RUN apt-get install -y tesseract-ocr-tur
 
 EXPOSE 5000
 

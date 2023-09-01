@@ -1,1 +1,5 @@
-idvision_env
+myenv
+node_modules
+.expo
+.ipynb_checkpoint
+pytesseract

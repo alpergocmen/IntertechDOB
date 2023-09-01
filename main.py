@@ -132,7 +132,7 @@ class KimlikTespit:
 
     # Kimlikteki bilgieri çıkarıp df'e yaz
     def extract_text(self, dtf):
-        pytesseract.pytesseract.tesseract_cmd = "pyteserract/tesseract.exe"
+        #pytesseract.pytesseract.tesseract_cmd = "pyteserract/tesseract.exe"
 
         def base64_to_img(base64_img):
             image_data = base64.b64decode(base64_img)
