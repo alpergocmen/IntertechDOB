@@ -24,28 +24,39 @@ const KimlikOnYuz = () => {
       if (cameraRef.current) {
         const options = { quality: 0.5, base64: true, exif: false };
         const photo = await cameraRef.current.takePictureAsync(options); 
-        const photoPath = photo.uri;
         
-        uploadImage(photoPath);
+        base64_data = photo.base64
+        string_length = base64_data.length      
+        processImage(base64_data)
       }
     } catch (error) {
         console.error('Error taking the photo.');
       }
   }
-  const uploadImage = async (photoPath) => {
-    const photoData = new FormData();
-    photoData.append("file", {uri: photoPath, name:'image.jpg', filename: 'image', type: 'image/jpg'});
-    console.log("Form Data:", photoData);
-    
-    //sendPhotoToAPI(photoData)
-  }
-  const toggleCameraType = () => {
-    setType(
-      type === Camera.Constants.Type.back
-        ? Camera.Constants.Type.front
-        : Camera.Constants.Type.back
-    );
-    console.log(Camera.Type);
+
+  const processImage = async (base64_code) => {
+    try {
+      
+      const apiUrl = 'https://idvisiontest.azurewebsites.net/process_front';
+
+      const requestData = {
+        on_yuz_image: base64_code,
+      };
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const responseData = await response.json();
+      const onYuzSonucValue = responseData.on_yuz_sonuc;
+      console.log(onYuzSonucValue)
+    } catch (error) {
+      console.error('Error processing image:', error);
+    }
   };
 
   return (
@@ -184,12 +195,12 @@ const styles = StyleSheet.create({
   areaForIdCard: {
     top: 219,
     left: 56,
-    borderRadius: Border.br_8xs,
+    borderRadius: 10,
     borderStyle: "solid",
     borderColor: "#e83e45",
     borderWidth: 1,
-    width: 225,
-    height: 375,
+    width: 220,
+    height: 360,
     position: "absolute",
   },
   kimlikNYz: {

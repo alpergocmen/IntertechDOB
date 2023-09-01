@@ -6,7 +6,6 @@ const KvkkInfoBox = () => {
     const [modalVisible, setModalVisible] = useState(false);
   
     const longText = jsonData
-    console.log(longText);
     
     return (
       <View style={styles.centeredView}>
