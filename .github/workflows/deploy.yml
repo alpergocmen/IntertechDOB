@@ -1,0 +1,29 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - IC_Detection
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Replace with your desired Python version
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt  # Modify this command according to your requirements
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: your-app-name  # Replace with your Azure Web App name
+          slot-name: production    # Optional, specify deployment slot if needed
+           # Store this in GitHub Secrets
