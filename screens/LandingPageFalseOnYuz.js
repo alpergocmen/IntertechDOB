@@ -92,9 +92,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   blueAbstractBackgroundNewGIcon: {
-    top: 0,
-    width: 375,
-    height: 812,
+    borderColor: "black",
+    borderWidth: 3,
+    width: "100%",
+    height: "100%",
   },
   talimatSayfasnaDnmek: {
     top: 577,
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     right: "0%",
     bottom: "0%",
     left: "0%",
-    borderRadius: Border.br_31xl,
+    borderRadius: 10,
     backgroundColor: Color.gainsboro,
     display: "none",
     position: "absolute",

@@ -6,7 +6,7 @@ const Component2 = () => {
   return (
     <View style={styles.component2}>
       <Text style={[styles.halaOlmadysanImdi, styles.musteriolTypo]}>
-        Hala olmadıysan şimdi
+        Hala olmadıysan şimdi 
       </Text>
       <Text style={[styles.musteriol, styles.musteriolTypo]}>Müşteri Ol</Text>
     </View>
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   musteriol: {
     width: "30.3%",
     left: "67.27%",
-    textDecoration: "underline",
   },
   component2: {
     top: 469,

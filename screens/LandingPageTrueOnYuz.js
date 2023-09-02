@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
   blueAbstractBackgroundNewGIcon: {
     width: "100%",
     height: "100%",
+    borderColor: "black",
+    borderWidth: 3,
   },
   component1Child: {
     height: "100%",

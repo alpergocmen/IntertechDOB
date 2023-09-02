@@ -22,11 +22,10 @@ const KimlikOnYuz = () => {
   const takePhoto = async () => {
     try {
       if (cameraRef.current) {
-        const options = { quality: 0.5, base64: true, exif: false };
+        const options = { quality: 1, base64: true, exif: false };
         const photo = await cameraRef.current.takePictureAsync(options); 
         
-        base64_data = photo.base64
-        string_length = base64_data.length      
+        base64_data = photo.base64    
         processImage(base64_data)
       }
     } catch (error) {
@@ -36,11 +35,11 @@ const KimlikOnYuz = () => {
 
   const processImage = async (base64_code) => {
     try {
-      
       const apiUrl = 'https://idvisiontest.azurewebsites.net/process_front';
-
+      
+      base64_code = " \"" + base64_code + "\""
       const requestData = {
-        on_yuz_image: base64_code,
+        "on_yuz_image" : base64_code,
       };
 
       const response = await fetch(apiUrl, {
@@ -53,7 +52,14 @@ const KimlikOnYuz = () => {
 
       const responseData = await response.json();
       const onYuzSonucValue = responseData.on_yuz_sonuc;
-      console.log(onYuzSonucValue)
+      console.log("Kimlik on yuz sonuc: " + onYuzSonucValue)
+
+      if (onYuzSonucValue === true) {
+        navigation.navigate("LandingPageTrueOnYuz");
+      } else {
+        navigation.navigate("LandingPageFalseOnYuz");
+      }
+
     } catch (error) {
       console.error('Error processing image:', error);
     }
