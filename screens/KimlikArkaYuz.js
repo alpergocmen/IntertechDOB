@@ -57,9 +57,13 @@ const KimlikArkaYuz = () => {
       console.log("Kimlik arka yuz sonuc: " + arkaYuzSonucValue)
       console.log("Kimlik barkod sonuc: " + barkodSonucValue)
       
-      if (barkodSonucValue === true) {
+      if (arkaYuzSonucValue === true && barkodSonucValue === true) {
         navigation.navigate("LandingPageTrueArkaYuz");
-      } else {
+      }
+      else if (arkaYuzSonucValue === true && barkodSonucValue === false) {
+        navigation.navigate("Info");
+      }
+      else {
         navigation.navigate("LandingPageFalseArkaYuz");
       }
 
