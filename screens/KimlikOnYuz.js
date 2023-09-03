@@ -102,6 +102,12 @@ const KimlikOnYuz = () => {
       />
       <TakeAShoot onTakeAShootPress={takePhoto} />
       <GoForward
+        propTop="87.5%"
+        propLeft="55%"
+        propTop1="34.22%"
+        propRight="19.5%"
+        propBottom="34.22%"
+        propLeft1="19%"
         imagePlaceholderText={require("../assets/arrow-2.png")}
         onGoForwardPress={() => navigation.navigate("LandingPageTrueOnYuz")}
       />
@@ -115,6 +121,11 @@ const KimlikOnYuz = () => {
 };
 
 const styles = StyleSheet.create({
+  goforward: {
+    borderColor: "red",
+    borderWidth:"3",
+    top: "50%"
+  },
   backLayer: {
     position: "absolute",
     top: 0,

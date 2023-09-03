@@ -80,10 +80,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   goForward: {
-    top: 689,
-    left: 202,
-    width: 100,
-    height: 70,
+    top: "10%",
+    left: "20%",
+    width: "30%",
+    height: "10%",
     position: "absolute",
   },
 });

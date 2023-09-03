@@ -61,7 +61,7 @@ const KimlikArkaYuz = () => {
         navigation.navigate("LandingPageTrueArkaYuz");
       }
       else if (arkaYuzSonucValue === true && barkodSonucValue === false) {
-        navigation.navigate("Info");
+        navigation.navigate("LandingPageFalseArkaYuzBarkod");
       }
       else {
         navigation.navigate("LandingPageFalseArkaYuz");
@@ -109,6 +109,12 @@ const KimlikArkaYuz = () => {
       />
       <TakeAShoot onTakeAShootPress={takePhoto} />
       <GoForward
+        propTop="87.5%"
+        propLeft="55%"
+        propTop1="34.22%"
+        propRight="19.5%"
+        propBottom="34.22%"
+        propLeft1="19%"
         imagePlaceholderText={require("../assets/arrow-2.png")}
         onGoForwardPress={() => navigation.navigate("LandingPageTrueArkaYuz")}
       />

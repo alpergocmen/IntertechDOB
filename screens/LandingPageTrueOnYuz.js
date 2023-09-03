@@ -142,8 +142,6 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   landingPageTrueOnyuz: {
-    borderColor: "green",
-    borderWidth: 2,
     backgroundColor: Color.basicLightBG,
     flex: 1,
     overflow: "hidden",

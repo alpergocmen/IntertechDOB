@@ -45,12 +45,12 @@ const LandingPageFalseArkaYuz = () => {
       />
       <GoForward
         imagePlaceholderText={require("../assets/arrow-22.png")}
-        propTop={766}
-        propLeft={237}
-        propTop1="-65.78%"
-        propRight="119%"
-        propBottom="134.22%"
-        propLeft1="-80.5%"
+        propTop="87.5%"
+        propLeft="55%"
+        propTop1="34.22%"
+        propRight="19.5%"
+        propBottom="34.22%"
+        propLeft1="19%"
         onGoForwardPress={() => navigation.navigate("Info2")}
       />
       <Image
