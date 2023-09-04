@@ -6,6 +6,7 @@ import {
   View,
   TouchableHighlight,
   Text,
+  Button
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -18,6 +19,24 @@ const KimlikOnYuz = () => {
   const navigation = useNavigation();
   const [type, setType] = useState(Camera.Constants.Type.back);
   const cameraRef = useRef(null);
+
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+
+  // Permission alma:
+  if (!permission) {
+    // Camera permissions are still loading
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet
+    return (
+      <View style={styles.container}>
+        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
+    );
+  }
 
   const takePhoto = async () => {
     try {
