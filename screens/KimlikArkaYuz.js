@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     borderColor: "#e83e45",
     borderWidth: 1,
     width: 225,
-    height: 375,
+    height: 340,
     position: "absolute",
   },
   kimlikRYz: {
