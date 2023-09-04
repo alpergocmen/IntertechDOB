@@ -68,7 +68,6 @@ const LandingPageFalseOnYuz = () => {
 
 const styles = StyleSheet.create({
   headerPosition: {
-    
     left: 0,
     position: "absolute",
   },

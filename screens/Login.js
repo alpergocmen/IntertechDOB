@@ -21,11 +21,6 @@ const Login = () => {
       <View style={[styles.header, styles.headerPosition]}>
         <View style={[styles.component1, styles.logo1IconPosition]}>
           <View style={styles.component1Child} />
-          <Image
-            style={styles.component1Item}
-            contentFit="contain"
-            source={require("../assets/arrow-1.png")}
-          />
         </View>
         <Image
           style={[styles.logo1Icon, styles.logo1IconPosition]}

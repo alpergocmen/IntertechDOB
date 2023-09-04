@@ -6,7 +6,8 @@ import {
   View,
   TouchableHighlight,
   Text,
-  Button
+  Button,
+  Dimensions
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -19,7 +20,6 @@ const KimlikOnYuz = () => {
   const navigation = useNavigation();
   const [type, setType] = useState(Camera.Constants.Type.back);
   const cameraRef = useRef(null);
-
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
   // Permission alma:
@@ -131,7 +131,11 @@ const KimlikOnYuz = () => {
         onGoForwardPress={() => navigation.navigate("LandingPageTrueOnYuz")}
       />
       <View style={styles.cameraScreen}>
-        <Camera style={styles.camera} type={type} ref={cameraRef} />
+        <Camera
+          style={styles.camera}
+          type={type}
+          ref={cameraRef}
+        />
       </View>
       <View style={styles.areaForIdCard} />
       <Text style={styles.kimlikNYz}>Kimlik Ön Yüz</Text>
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
     top: 156,
     backgroundColor: Color.black,
     width: 300,
-    height: 500,
+    height: 480,
     left: 19,
     position: "absolute",
   },
@@ -229,14 +233,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   areaForIdCard: {
-    top: 219,
-    left: 56,
+    top: 300,
+    left: 20,
     borderRadius: 10,
     borderStyle: "solid",
     borderColor: "#e83e45",
     borderWidth: 1,
-    width: 220,
-    height: 360,
+    width: 300,
+    height: 180,
     position: "absolute",
   },
   kimlikNYz: {
