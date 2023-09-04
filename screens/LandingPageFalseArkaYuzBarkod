@@ -6,7 +6,7 @@ import StatusBarDark from "../components/StatusBarDark";
 import GoForward from "../components/GoForward";
 import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
-const LandingPageFalseArkaYuz = () => {
+const LandingPageFalseArkaYuzBarkod = () => {
   const navigation = useNavigation();
 
   return (
