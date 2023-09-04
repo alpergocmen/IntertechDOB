@@ -1,13 +1,22 @@
 import * as React from "react";
-import { Text, StyleSheet, Pressable, View } from "react-native";
+import { Text, StyleSheet, Pressable, View, TouchableOpacity } from "react-native";
 import { Color, FontFamily, FontSize } from "../GlobalStyles";
+import { useNavigation } from "@react-navigation/native";
+
 
 const Component2 = () => {
+  const navigation = useNavigation();
+
+  const navigateToAnotherPage = () => {
+  
+    navigation.navigate("AnotherScreen");
+  };
+
   return (
     <View style={styles.component2}>
       <Text style={[styles.halaOlmadysanImdi, styles.musteriolTypo]}>
-        Hala olmadıysan şimdi 
-      </Text>
+        Hala Olmadıysan Şimdi</Text>
+        
       <Text style={[styles.musteriol, styles.musteriolTypo]}>Müşteri Ol</Text>
     </View>
   );
@@ -20,7 +29,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: Color.white,
     fontFamily: FontFamily.interMedium,
-    fontWeight: "500",
+    fontWeight: "200",
     lineHeight: 20,
     fontSize: FontSize.size_3xs,
     top: "0%",
@@ -28,12 +37,12 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   halaOlmadysanImdi: {
-    width: "66.67%",
+    width: "100%",
     left: "0%",
   },
   musteriol: {
-    width: "30.3%",
-    left: "67.27%",
+    width: "100%",
+    left: "70.27%",
   },
   component2: {
     top: 469,
