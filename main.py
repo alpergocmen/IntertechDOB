@@ -59,13 +59,18 @@ def base64_to_img(base64_img):
     return Image.open(buffered)
 
 
-def img_save(photo):
+def img_save(photo, mode):
     image1_data = base64.b64decode(photo)
 
     # Convert binary data to PIL Image objects
     image1 = Image.open(BytesIO(image1_data))
 
+    if mode == "on" or mode == "arka":
+        # 90 derece saat yönünün tersine çevir
+        image1 = image1.transpose(Image.ROTATE_90)
+
     image1.save("temp_image.jpg")
+    image1.save("temp_image_1.jpg")
 
     return "temp_image.jpg"
 
@@ -196,12 +201,13 @@ class KimlikTespit:
         onyuz_labels = ['onyuz', 'tckk', 'tckn', 'hilal', 'soyad', 'isim', 'dogum', 'serino', 'cinsiyet', 'imza',
                         'fotograf']
         arkayuz_labels = ['arkayuz', 'id_check', 'barkod', 'anne_adi', 'baba_adi', 'pen', 'alt_barkod']
-        
+
         # En boy oranı kontrolü
         for dct in [dct for dct in detections if dct["class"] == 0]:
             oran = dct["bbox"][3] / dct["bbox"][4]
-            if oran <= 1 or oran >= 2:
+            if oran <= 0.9 or oran >= 3.8:
                 return False
+
 
         # Kimlik üzerindeki alanlar kontrolü ve sayımı
         label_counts = {}
@@ -220,9 +226,11 @@ class KimlikTespit:
 
         for required_label in required_labels:
             if required_label not in label_counts:
+                print("label eksik")
                 return False
 
             if label_counts[required_label] > 1:
+                print("aynı labelden birden fazla var")
                 return False
 
         # Eğer tüm kontroller geçerliyse, DataFrame'e yazdır
@@ -234,7 +242,6 @@ class KimlikTespit:
                 row_count = self.df.shape[0]
                 self.df.loc[row_count + idx] = [detection["class"], detection["label"], detection["cropped_base64"]]
         return True
-
 
 
 # Face Matcher

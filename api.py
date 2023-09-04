@@ -17,7 +17,7 @@ def process_front():
       
         # Perform image processing using your existing code
         weights = "weights/onyuz_weight.pt"
-        source = img_save(on_yuz_image)
+        source = img_save(on_yuz_image, "on")
         kimlik_tespit = KimlikTespit(weights, source)
         on_yuz_sonuc = kimlik_tespit.kimlik_kontrol()
         os.remove(source)
@@ -41,13 +41,14 @@ def process_back():
     try:
         data = request.json
         arka_yuz_image = data.get('arka_yuz_image', None)
+
         
         if arka_yuz_image is None:
             return jsonify({'error': 'Arka yuz data is missing.'}), 400
         
         # Perform image processing using your existing code
         weights = "weights/arkayuz_weight.pt"
-        source = img_save(arka_yuz_image)
+        source = img_save(arka_yuz_image, "arka")
         kimlik_tespit = KimlikTespit(weights, source)
         arka_yuz_sonuc = kimlik_tespit.kimlik_kontrol()
         os.remove(source)  
@@ -87,9 +88,18 @@ def process_face():
         
         df_concat = pd.read_csv("df_concat.csv")
         yuz_kontrol_sonuc = yuz_kontrol(df_concat, yuz_image)
+        name = df_concat[df_concat["label"] == "isim"]["text"].iloc[0]
+        surname = df_concat[df_concat["label"] == "soyad"]["text"].iloc[0]
+        birth = df_concat[df_concat["label"] == "dogum"]["text"].iloc[0]
+        gender = df_concat[df_concat["label"] == "cinsiyet"]["text"].iloc[0]
         
         response = {
-            'yuz_kontrol_sonuc': yuz_kontrol_sonuc
+            'yuz_kontrol_sonuc': yuz_kontrol_sonuc,
+            'name': name,
+            'surname': surname,
+            'birth': birth,
+            'gender': gender
+
         }
         
         os.remove("df.csv")
