@@ -6,6 +6,8 @@ import {
   View,
   TouchableHighlight,
   Text,
+  Modal, 
+  ActivityIndicator
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -22,11 +24,12 @@ const Selfie = () => {
   const navigation = useNavigation();
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const takePhoto = async () => {
     try {
       if (cameraRef.current) {
         const options = { quality: 0.5, base64: true, exif: false };
+        setIsLoading(true);
         const photo = await cameraRef.current.takePictureAsync(options); 
         
         base64_data = photo.base64    

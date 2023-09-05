@@ -7,7 +7,9 @@ import {
   TouchableHighlight,
   Text,
   Button,
-  Dimensions
+  Dimensions,
+  Modal, 
+  ActivityIndicator
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -21,7 +23,7 @@ const KimlikOnYuz = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const cameraRef = useRef(null);
   const [permission, requestPermission] = Camera.useCameraPermissions();
-
+  const [isLoading, setIsLoading] = useState(false);
   // Permission alma:
   if (!permission) {
     // Camera permissions are still loading
@@ -42,6 +44,7 @@ const KimlikOnYuz = () => {
     try {
       if (cameraRef.current) {
         const options = { quality: 1, base64: true, exif: false };
+        setIsLoading(true);
         const photo = await cameraRef.current.takePictureAsync(options); 
         
         base64_data = photo.base64    
@@ -139,6 +142,14 @@ const KimlikOnYuz = () => {
       </View>
       <View style={styles.areaForIdCard} />
       <Text style={styles.kimlikNYz}>Kimlik Ön Yüz</Text>
+      <Modal visible={isLoading} transparent={true}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+            <ActivityIndicator size="large" color="blue" />
+            <Text>Processing...</Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
