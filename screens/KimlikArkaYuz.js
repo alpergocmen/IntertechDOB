@@ -14,6 +14,7 @@ import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 import { Camera } from 'expo-camera';
 import { useState, useRef, useEffect } from 'react';
 
+
 const KimlikArkaYuz = () => {
   const navigation = useNavigation();
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -32,7 +33,7 @@ const KimlikArkaYuz = () => {
         console.error('Error taking the photo.');
       }
   }
-  
+
   const processImage = async (base64_code) => {
     try {
       
@@ -54,6 +55,7 @@ const KimlikArkaYuz = () => {
       const responseData = await response.json();
       const arkaYuzSonucValue = responseData.arka_yuz_sonuc;
       const barkodSonucValue = responseData.barkod_kontrol_sonuc;
+
       console.log("Kimlik arka yuz sonuc: " + arkaYuzSonucValue)
       console.log("Kimlik barkod sonuc: " + barkodSonucValue)
       
@@ -126,6 +128,8 @@ const KimlikArkaYuz = () => {
     </View>
   );
 };
+
+export const message = "Hello from sender.js";
 
 const styles = StyleSheet.create({
   backLayer: {
@@ -213,12 +217,12 @@ const styles = StyleSheet.create({
   },
   areaForIdCard: {
     top: 219,
-    left: 56,
+    left: 76,
     borderRadius: Border.br_8xs,
     borderStyle: "solid",
     borderColor: "#e83e45",
     borderWidth: 1,
-    width: 225,
+    width: 180,
     height: 340,
     position: "absolute",
   },

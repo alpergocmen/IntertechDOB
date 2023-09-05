@@ -11,8 +11,12 @@ import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
 import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
-import { Camera } from 'expo-camera';
+import { Camera, requestMicrophonePermissionsAsync } from 'expo-camera';
 import { useState, useRef, useEffect } from 'react';
+
+let name = "";
+let surname = "";
+let gender = "";
 
 const Selfie = () => {
   const navigation = useNavigation();
@@ -53,7 +57,15 @@ const Selfie = () => {
 
       const responseData = await response.json();
       const yuzSonucValue = responseData.yuz_kontrol_sonuc;
+
+      name = responseData.name;
+      surname = responseData.surname;
+      gender = responseData.gender
+
       console.log("Yuz sonuc: " + yuzSonucValue)
+      console.log("Name: " + name)
+      console.log("Surname: " + surname)
+      console.log("Gender: " + gender)
 
       if (yuzSonucValue === true) {
         navigation.navigate("LandingPage2");
@@ -112,6 +124,12 @@ const Selfie = () => {
       </View>
     </View>
   );
+};
+
+export const userInfo = {
+  name: name,
+  surname: surname,
+  gender: gender,
 };
 
 const styles = StyleSheet.create({

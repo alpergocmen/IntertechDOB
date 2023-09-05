@@ -7,8 +7,22 @@ import Component4 from "../components/Component4";
 import Component3 from "../components/Component3";
 import { Color, FontFamily, Border, FontSize } from "../GlobalStyles";
 
+import { userInfo  } from './Selfie';
+
 const LandingPage2 = () => {
   const navigation = useNavigation();
+
+  const name = userInfo.name;
+  const gender = userInfo.gender;
+
+  if (gender == "E/M") {
+    gender = "BEY";
+  }
+  else if (gender == "K/F") {
+    gender = "HANIM";
+  }
+
+  console.log(name + gender)
 
   return (
     <View style={styles.welcome}>
@@ -46,7 +60,7 @@ const LandingPage2 = () => {
         DenizBank’a Hoşgeldiniz,
       </Text>
       <Text style={[styles.metinUslu, styles.metinUsluFlexBox]}>
-        Metin USLU
+        {name} {gender}
       </Text>
       <Text style={[styles.artkSizDe, styles.metinUsluFlexBox]}>
         Artık siz de bir DenizBank müşterisisiniz.
