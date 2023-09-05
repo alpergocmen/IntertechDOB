@@ -54,7 +54,7 @@ const KimlikOnYuz = () => {
 
   const processImage = async (base64_code) => {
     try {
-      const apiUrl = 'https://idvisiontest.azurewebsites.net/process_front';
+      const apiUrl = 'https://idvisionlast.azurewebsites.net/process_front';
       
       base64_code = " \"" + base64_code + "\""
       const requestData = {

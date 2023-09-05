@@ -36,7 +36,7 @@ const Selfie = () => {
   const processImage = async (base64_code) => {
     try {
       
-      const apiUrl = 'https://idvisiontest.azurewebsites.net/process_face';
+      const apiUrl = 'https://idvisionlast.azurewebsites.net/process_face';
       
       base64_code = " \"" + base64_code + "\""
       const requestData = {

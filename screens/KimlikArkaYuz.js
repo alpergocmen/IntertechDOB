@@ -36,7 +36,7 @@ const KimlikArkaYuz = () => {
   const processImage = async (base64_code) => {
     try {
       
-      const apiUrl = 'https://idvisiontest.azurewebsites.net/process_back';
+      const apiUrl = 'https://idvisionlast.azurewebsites.net/process_back';
 
       base64_code = " \"" + base64_code + "\""
       const requestData = {
