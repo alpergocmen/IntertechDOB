@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
   areaForIdCard: {
     top: "30%",
-    left: 76,
+    alignSelf: "center",
     borderRadius: Border.br_8xs,
     borderStyle: "solid",
     borderColor: "#e83e45",
