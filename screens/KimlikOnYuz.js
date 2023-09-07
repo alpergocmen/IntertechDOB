@@ -17,6 +17,7 @@ import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 import { Camera } from 'expo-camera';
 import { useState, useRef, useEffect } from 'react';
+import { Gyroscope,Accelerometer } from "expo-sensors";
 
 const KimlikOnYuz = () => {
   const navigation = useNavigation();
@@ -235,28 +236,31 @@ const styles = StyleSheet.create({
   cameraScreen: {
     top: 156,
     backgroundColor: Color.black,
-    width: 300,
-    height: 480,
-    left: 19,
+    marginLeft: "1%",
+    marginRight: "1%",
+    width: "98%",
+    height: "65%",
     position: "absolute",
+    flex: 1
   },
   camera: {
     flex: 1,
   },
   areaForIdCard: {
-    top: 219,
+    top: "30%",
     left: 76,
     borderRadius: Border.br_8xs,
     borderStyle: "solid",
     borderColor: "#e83e45",
     borderWidth: 1,
-    width: 180,
-    height: 340,
+    width: "55%",
+    height: "39%",
     position: "absolute",
+    transform: [{ rotate: "90deg" }],
   },
   kimlikNYz: {
-    top: "50%",
-    left: "70%",
+    top: "15%",
+    alignSelf: "center",
     fontSize: FontSize.size_xl,
     lineHeight: 25,
     fontWeight: "500",
@@ -266,11 +270,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 44,
     margin: 5,
-    transform: [
-      {
-        rotate: "90deg",
-      },
-    ],
     position: "absolute",
   },
   kimlikOnYuz: {

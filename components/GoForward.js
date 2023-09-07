@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
   goForward: {
     top: "10%",
     left: "20%",
-    width: "30%",
-    height: "10%",
+    width: "20%",
+    height: "7.5%",
     position: "absolute",
   },
 });
