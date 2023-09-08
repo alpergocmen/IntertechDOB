@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   goForwardItem: {
     width: "60%",
-    top: "60%",
+    top: "50%",
     right: "21%",
     left: "19%",
     maxWidth: "100%",

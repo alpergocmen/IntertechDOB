@@ -14,9 +14,6 @@ const Component2 = () => {
 
   return (
     <View style={styles.component2}>
-      <Text style={[styles.halaOlmadysanImdi, styles.musteriolTypo]}>
-        Hala Olmadıysan Şimdi</Text>
-        
       <Text style={[styles.musteriol, styles.musteriolTypo]}>Müşteri Ol</Text>
     </View>
   );
@@ -29,20 +26,16 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: Color.white,
     fontFamily: FontFamily.interMedium,
-    fontWeight: "200",
+    fontWeight:"bold",
     lineHeight: 20,
-    fontSize: FontSize.size_3xs,
+    fontSize: FontSize.sizebase,
     top: "0%",
     height: "100%",
     position: "absolute",
   },
-  halaOlmadysanImdi: {
-    width: "100%",
-    left: "0%",
-  },
   musteriol: {
     width: "100%",
-    left: "70.27%",
+    left: "38%",
   },
   component2: {
     top: 469,

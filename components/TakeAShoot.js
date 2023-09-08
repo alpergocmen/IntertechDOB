@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 60,
     position: "absolute",
+    transform: [{ rotate: "90deg" }],
   },
 });
 

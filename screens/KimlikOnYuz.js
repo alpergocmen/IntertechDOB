@@ -2,14 +2,13 @@ import * as React from "react";
 import { Image } from "expo-image";
 import {
   StyleSheet,
-  Pressable,
   View,
   TouchableHighlight,
   Text,
   Button,
-  Dimensions,
   Modal, 
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -17,7 +16,6 @@ import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 import { Camera } from 'expo-camera';
 import { useState, useRef, useEffect } from 'react';
-import { Gyroscope,Accelerometer } from "expo-sensors";
 
 const KimlikOnYuz = () => {
   const navigation = useNavigation();
@@ -123,24 +121,60 @@ const KimlikOnYuz = () => {
         contentFit="cover"
         source={require("../assets/status-bar--dark2.png")}
       />
-      <TakeAShoot onTakeAShootPress={takePhoto} />
-      <GoForward
-        propTop="87.5%"
-        propLeft="55%"
-        propTop1="34.22%"
-        propRight="19.5%"
-        propBottom="34.22%"
-        propLeft1="19%"
-        imagePlaceholderText={require("../assets/arrow-2.png")}
-        onGoForwardPress={() => navigation.navigate("LandingPageTrueOnYuz")}
-      />
-      <View style={styles.cameraScreen}>
-        <Camera
-          style={styles.camera}
-          type={type}
-          ref={cameraRef}
+     
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <TouchableOpacity
+        onPress={takePhoto}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf:"flex-end",
+          marginRight: "50%",
+          right: 35,
+          top: 107.5,
+          marginBottom: 50,
+          transform: [{ rotate: '90deg' }], 
+        }}
+      >
+        <Image
+          source={require("../assets/icons8camera100-1.png")}
+          style={{ alignSelf: "center", width: 55, height: 55 }} 
         />
+
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("LandingPageTrueOnYuz")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf:"flex-end",
+          marginRight: "25%",
+          marginBottom: 50,
+          transform: [{ rotate: '90deg' }], 
+        }}
+      >
+        <Image
+          source={require("../assets/arrow-2.png")}
+          style={{ alignSelf: "center", width: 55, height: 20 }} 
+        />
+      </TouchableOpacity>
+      </View> 
+      
+      <View style={styles.cameraScreen}>
+          <Camera
+            style={styles.camera}
+            type={type}
+            ref={cameraRef}
+          /> 
       </View>
+      <View style={styles.overlay}></View>
+      <View style={styles.overlay2}></View>
+      <View style={styles.overlay3}></View>
+      <View style={styles.overlay4}></View>
       <View style={styles.areaForIdCard} />
       <Text style={styles.kimlikNYz}>Kimlik Ön Yüz</Text>
       <Modal visible={isLoading} transparent={true}>
@@ -197,6 +231,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.gainsboro,
     width: "100%",
+    
   },
   component1Item: {
     height: "47%",
@@ -238,10 +273,11 @@ const styles = StyleSheet.create({
     backgroundColor: Color.black,
     marginLeft: "1%",
     marginRight: "1%",
-    width: "98%",
+    width: "88%",
     height: "65%",
     position: "absolute",
-    flex: 1
+    flex: 1,
+    
   },
   camera: {
     flex: 1,
@@ -256,21 +292,21 @@ const styles = StyleSheet.create({
     width: "55%",
     height: "39%",
     position: "absolute",
-    transform: [{ rotate: "90deg" }],
+    //transform: [{ rotate: "90deg" }],
   },
   kimlikNYz: {
-    top: "15%",
-    alignSelf: "center",
+    top: "50%",
+    left: "70%",
     fontSize: FontSize.size_xl,
     lineHeight: 25,
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
     color: Color.white,
-    textAlign: "center",
     width: 150,
     height: 44,
     margin: 5,
     position: "absolute",
+    transform: [{ rotate: "90deg" }]
   },
   kimlikOnYuz: {
     backgroundColor: Color.basicLightBG,
@@ -279,6 +315,39 @@ const styles = StyleSheet.create({
     height: 812,
     width: "100%",
   },
+  overlay: {
+    position: "absolute",
+    top: "18.75%",
+    left: "1%",
+    right: "10.55%",
+    bottom: "70%", 
+    backgroundColor: "rgba(0,0,0,0.7)",
+    
+  },
+  overlay2: {
+    position: "absolute",
+    top: "68.75%",
+    left: "1%",
+    right: "10.55%",
+    bottom: "16%", 
+    backgroundColor: "rgba(0,0,0,0.7)"
+  },
+  overlay3: {
+    position: "absolute",
+    top: "30%",
+    left: "77.5%",
+    right: "10.5%",
+    bottom: "31.25%", 
+    backgroundColor: "rgba(0,0,0,0.7)"
+  },
+  overlay4: {
+    position: "absolute",
+    top: "30%",
+    left: "1%",
+    right: "77.5%",
+    bottom: "31.25%", 
+    backgroundColor: "rgba(0,0,0,0.7)"
+  }
 });
 
 export default KimlikOnYuz;
