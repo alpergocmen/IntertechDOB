@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
   Text,
   Modal, 
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -77,9 +78,8 @@ const KimlikArkaYuz = () => {
       console.error('Error processing image:', error);
     }
   };
-
   return (
-    <View style={styles.kimlikArkaYuz}>
+    <View style={styles.kimlikOnYuz}>
       <Image
         style={[styles.blueAbstractBackgroundNewGIcon, styles.backLayer]} // Apply backLayer style
         contentFit="cover"
@@ -113,29 +113,81 @@ const KimlikArkaYuz = () => {
         contentFit="cover"
         source={require("../assets/status-bar--dark2.png")}
       />
-      <TakeAShoot onTakeAShootPress={takePhoto} />
-      <GoForward
-        propTop="87.5%"
-        propLeft="55%"
-        propTop1="34.22%"
-        propRight="19.5%"
-        propBottom="34.22%"
-        propLeft1="19%"
-        imagePlaceholderText={require("../assets/arrow-2.png")}
-        onGoForwardPress={() => navigation.navigate("LandingPageTrueArkaYuz")}
-      />
+     
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <TouchableOpacity
+        onPress={takePhoto}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf:"flex-end",
+          marginRight: "50%",
+          right: 35,
+          top: 107.5,
+          marginBottom: 50,
+          transform: [{ rotate: '90deg' }], 
+        }}
+      >
+        <Image
+          source={require("../assets/icons8camera100-1.png")}
+          style={{ alignSelf: "center", width: 55, height: 55 }} 
+        />
+
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("LandingPageTrueArkaYuz")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf:"flex-end",
+          marginRight: "25%",
+          marginBottom: 50,
+          transform: [{ rotate: '90deg' }], 
+        }}
+      >
+        <Image
+          source={require("../assets/arrow-2.png")}
+          style={{ alignSelf: "center", width: 55, height: 20 }} 
+        />
+      </TouchableOpacity>
+      </View> 
+      
       <View style={styles.cameraScreen}>
-        <Camera style={styles.camera} type={type} ref={cameraRef} />
+          <Camera
+            style={styles.camera}
+            type={type}
+            ref={cameraRef}
+          /> 
       </View>
+      <View style={styles.overlay}></View>
+      <View style={styles.overlay2}></View>
+      <View style={styles.overlay3}></View>
+      <View style={styles.overlay4}></View>
       <View style={styles.areaForIdCard} />
-      <Text style={styles.kimlikRYz}>Kimlik Arka Yüz</Text>
+      <Text style={styles.kimlikNYz}>Kimlik Arka Yüz</Text>
+      <Modal visible={isLoading} transparent={true}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+            <ActivityIndicator size="large" color="blue" />
+            <Text>Processing...</Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
+  
 };
 
-export const message = "Hello from sender.js";
-
 const styles = StyleSheet.create({
+  goforward: {
+    borderColor: "red",
+    borderWidth:"3",
+    top: "50%"
+  },
   backLayer: {
     position: "absolute",
     top: 0,
@@ -172,6 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_31xl,
     backgroundColor: Color.gainsboro,
     width: "100%",
+    
   },
   component1Item: {
     height: "47%",
@@ -211,26 +264,30 @@ const styles = StyleSheet.create({
   cameraScreen: {
     top: 156,
     backgroundColor: Color.black,
-    width: 300,
-    height: 500,
-    left: 19,
+    marginLeft: "1%",
+    marginRight: "1%",
+    width: "88%",
+    height: "65%",
     position: "absolute",
+    flex: 1,
+    
   },
   camera: {
     flex: 1,
   },
   areaForIdCard: {
-    top: 219,
-    left: 76,
+    top: "30%",
+    alignSelf: "center",
     borderRadius: Border.br_8xs,
     borderStyle: "solid",
     borderColor: "#e83e45",
     borderWidth: 1,
-    width: 180,
-    height: 340,
+    width: "55%",
+    height: "39%",
     position: "absolute",
+    //transform: [{ rotate: "90deg" }],
   },
-  kimlikRYz: {
+  kimlikNYz: {
     top: "50%",
     left: "70%",
     fontSize: FontSize.size_xl,
@@ -238,24 +295,56 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
     color: Color.white,
-    textAlign: "center",
     width: 150,
     height: 44,
     margin: 5,
-    transform: [
-      {
-        rotate: "90deg",
-      },
-    ],
     position: "absolute",
+    transform: [{ rotate: "90deg" }]
   },
-  kimlikArkaYuz: {
+  kimlikOnYuz: {
     backgroundColor: Color.basicLightBG,
     flex: 1,
     overflow: "hidden",
     height: 812,
     width: "100%",
   },
+  overlay: {
+    position: "absolute",
+    top: "18.75%",
+    left: "1%",
+    right: "10.55%",
+    bottom: "70%", 
+    backgroundColor: "rgba(0,0,0,0.7)",
+    
+  },
+  overlay2: {
+    position: "absolute",
+    top: "68.75%",
+    left: "1%",
+    right: "10.55%",
+    bottom: "16%", 
+    backgroundColor: "rgba(0,0,0,0.7)"
+  },
+  overlay3: {
+    position: "absolute",
+    top: "30%",
+    left: "77.5%",
+    right: "10.5%",
+    bottom: "31.25%", 
+    backgroundColor: "rgba(0,0,0,0.7)"
+  },
+  overlay4: {
+    position: "absolute",
+    top: "30%",
+    left: "1%",
+    right: "77.5%",
+    bottom: "31.25%", 
+    backgroundColor: "rgba(0,0,0,0.7)"
+  }
 });
+
+export const message = "Hello from sender.js";
+
+
 
 export default KimlikArkaYuz;

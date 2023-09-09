@@ -5,8 +5,9 @@ import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 
 const Component3 = ({ buttonText, onComponent3Press, onGoForwardPress }) => {
   return (
-    <Pressable style={styles.component3} onPress={onComponent3Press}>
-      <Pressable style={styles.forwardPosition} onPress={onGoForwardPress}>
+    <Pressable style={[styles.component3, { backgroundColor: "rgba(255, 255, 255, 0.5)" }]} onPress={onComponent3Press}>
+      <Pressable style={[styles.forwardPosition, { backgroundColor: "rgba(255, 255, 255, 0.5)" }]} onPress={onGoForwardPress}>
+
         <View style={[styles.goForwardChild, styles.forwardPosition]} />
         <Image
           style={styles.goForwardItem}

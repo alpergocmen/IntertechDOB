@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import { StyleSheet, Pressable, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import Component4 from "../components/Component4";
@@ -65,10 +65,25 @@ const LandingPage2 = () => {
       <Text style={[styles.artkSizDe, styles.metinUsluFlexBox]}>
         Artık siz de bir DenizBank müşterisisiniz.
       </Text>
-      <Component3
-        buttonText="Giriş Yap"
-        onGoForwardPress={() => navigation.navigate("Selfie")}
-      />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Login")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "60%",
+          height: "7.5%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf: "center",
+          marginBottom: 70, 
+          justifyContent: "center"
+        }}
+      >
+        <Text style={{fontSize: 18, color: "black", textAlign: "center", fontWeight: "bold"}}>
+          Giriş Yap
+        </Text>
+      </TouchableOpacity>
+      </View>
       <Text style={[styles.hesabnzaGiriYapmak, styles.metinUsluFlexBox]}>
         Hesabınıza giriş yapmak için bir sonraki adıma geçebilirsiniz.
       </Text>

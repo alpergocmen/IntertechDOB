@@ -39,15 +39,7 @@ const Login = () => {
           contentFit="contain"
           source={require("../assets/logo-1.png")}
         />
-      </View>
-      <StatusBarDark
-        statusBarDarkStatusBarDar={require("../assets/status-bar--dark2.png")}
-        statusBarDarkPosition="absolute"
-        statusBarDarkTop={0}
-        statusBarDarkLeft={0}
-      />
-     
-      
+      </View>    
       <UserName/>
       
       

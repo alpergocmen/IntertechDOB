@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Text, Pressable, View } from "react-native";
+import { StyleSheet, Text, Pressable, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import GoForward from "../components/GoForward";
@@ -37,22 +37,26 @@ const LandingPageFalseArkaYuzBarkod = () => {
           source={require("../assets/logo-1.png")}
         />
       </View>
-      <StatusBarDark
-        statusBarDarkStatusBarDar={require("../assets/status-bar--dark2.png")}
-        statusBarDarkPosition="absolute"
-        statusBarDarkTop={0}
-        statusBarDarkLeft={0}
-      />
-      <GoForward
-        imagePlaceholderText={require("../assets/arrow-22.png")}
-        propTop="87.5%"
-        propLeft="55%"
-        propTop1="34.22%"
-        propRight="19.5%"
-        propBottom="34.22%"
-        propLeft1="19%"
-        onGoForwardPress={() => navigation.navigate("Info2")}
-      />
+      
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Info2")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf: "center",
+          marginBottom: 70, 
+          transform: [{ rotate: '180deg' }]
+        }}
+      >
+        <Image
+          source={require("../assets/arrow-2.png")}
+          style={{ alignSelf: "center", width: 55, height: 20 }} 
+        />
+      </TouchableOpacity>
+      </View>
       <Image
         style={styles.image1Icon}
         contentFit="cover"

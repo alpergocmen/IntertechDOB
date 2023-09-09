@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import { StyleSheet, Pressable, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import Component3 from "../components/Component3";
@@ -49,11 +49,25 @@ const CallCenter = () => {
         contentFit="cover"
         source={require("../assets/image-5.png")}
       />
-      <Component3
-        buttonText="Görüşmeyi Başlat"
-        onComponent3Press={() => navigation.navigate("Selfie")}
-        onGoForwardPress={() => navigation.navigate("Selfie")}
-      />
+     <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Selfie")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "60%",
+          height: "7.5%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf: "center",
+          marginBottom: 70, 
+          justifyContent: "center"
+        }}
+      >
+        <Text style={{fontSize: 18, color: "black", textAlign: "center", fontWeight: "bold"}}>
+          Görüşmeyi Başlat
+        </Text>
+      </TouchableOpacity>
+      </View>
     </View>
   );
 };
