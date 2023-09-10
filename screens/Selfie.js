@@ -13,10 +13,10 @@ import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 import { Camera, requestMicrophonePermissionsAsync } from 'expo-camera';
 import { useState, useRef, useEffect } from 'react';
-
-let name = "";
-let surname = "";
-let gender = "";
+ 
+var name = "";
+var surname = "";
+var gender = "";
 
 const Selfie = () => {
   const navigation = useNavigation();
@@ -126,11 +126,8 @@ const Selfie = () => {
   );
 };
 
-export const userInfo = {
-  name: name,
-  surname: surname,
-  gender: gender,
-};
+export const userName = name;
+export const userGender = gender;
 
 const styles = StyleSheet.create({
   backLayer: {

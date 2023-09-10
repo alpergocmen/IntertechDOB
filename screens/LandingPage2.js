@@ -7,13 +7,13 @@ import Component4 from "../components/Component4";
 import Component3 from "../components/Component3";
 import { Color, FontFamily, Border, FontSize } from "../GlobalStyles";
 
-import { userInfo  } from './Selfie';
+import { userName, userGender } from './Selfie';
 
 const LandingPage2 = () => {
   const navigation = useNavigation();
 
-  const name = userInfo.name;
-  const gender = userInfo.gender;
+  const name = userName;
+  const gender = userGender;
 
   if (gender == "E/M") {
     gender = "BEY";
@@ -21,8 +21,6 @@ const LandingPage2 = () => {
   else if (gender == "K/F") {
     gender = "HANIM";
   }
-
-  console.log(name + gender)
 
   return (
     <View style={styles.welcome}>
