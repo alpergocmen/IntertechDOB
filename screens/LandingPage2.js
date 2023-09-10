@@ -1,25 +1,30 @@
 import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, Pressable, View, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import Component4 from "../components/Component4";
 import Component3 from "../components/Component3";
 import { Color, FontFamily, Border, FontSize } from "../GlobalStyles";
 
-import { userName, userGender } from './Selfie';
-
 const LandingPage2 = () => {
   const navigation = useNavigation();
 
-  const name = userName;
-  const gender = userGender;
+  const route = useRoute();
 
-  if (gender == "E/M") {
+  // Access the firstname, surname, and gender from the route parameters
+  const { personName, personSurname, personGender } = route.params;
+  var gender;
+
+  // Now you can use these variables in your LandingPage2 component
+  if (personGender === "E/M") {
     gender = "BEY";
   }
-  else if (gender == "K/F") {
-    gender = "HANIM";
+  else if (personGender === "K/F") {
+    gender = "HANIM"
+  }
+  else {
+    gender = personSurname;
   }
 
   return (
@@ -58,7 +63,7 @@ const LandingPage2 = () => {
         DenizBank’a Hoşgeldiniz,
       </Text>
       <Text style={[styles.metinUslu, styles.metinUsluFlexBox]}>
-        {name} {gender}
+        {personName} {gender}
       </Text>
       <Text style={[styles.artkSizDe, styles.metinUsluFlexBox]}>
         Artık siz de bir DenizBank müşterisisiniz.

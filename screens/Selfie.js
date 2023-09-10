@@ -14,10 +14,6 @@ import GoForward from "../components/GoForward";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 import { Camera, requestMicrophonePermissionsAsync } from 'expo-camera';
 import { useState, useRef, useEffect } from 'react';
- 
-var name = "";
-var surname = "";
-var gender = "";
 
 const Selfie = () => {
   const navigation = useNavigation();
@@ -60,17 +56,21 @@ const Selfie = () => {
       const responseData = await response.json();
       const yuzSonucValue = responseData.yuz_kontrol_sonuc;
 
-      name = responseData.name;
-      surname = responseData.surname;
-      gender = responseData.gender
+      personName = responseData.name;
+      personSurname = responseData.surname;
+      personGender = responseData.gender;
 
       console.log("Yuz sonuc: " + yuzSonucValue)
-      console.log("Name: " + name)
-      console.log("Surname: " + surname)
-      console.log("Gender: " + gender)
+      console.log("Name: " + personName)
+      console.log("Surname: " + personSurname)
+      console.log("Gender: " + personGender)
 
       if (yuzSonucValue === true) {
-        navigation.navigate("LandingPage2");
+        navigation.navigate("LandingPage2", {
+          personName,
+          personSurname,
+          personGender,
+        });
       } else {
         navigation.navigate("Login");
       }
@@ -161,9 +161,6 @@ const Selfie = () => {
     </View>
   );
 };
-
-export const userName = name;
-export const userGender = gender;
 
 const styles = StyleSheet.create({
   backLayer: {
