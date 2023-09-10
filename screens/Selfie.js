@@ -6,6 +6,7 @@ import {
   View,
   TouchableHighlight,
   Text,
+  TouchableOpacity
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import TakeAShoot from "../components/TakeAShoot";
@@ -22,11 +23,12 @@ const Selfie = () => {
   const navigation = useNavigation();
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const takePhoto = async () => {
     try {
       if (cameraRef.current) {
         const options = { quality: 0.5, base64: true, exif: false };
+        setIsLoading(true);
         const photo = await cameraRef.current.takePictureAsync(options); 
         
         base64_data = photo.base64    
@@ -103,17 +105,6 @@ const Selfie = () => {
           source={require("../assets/logo-1.png")}
         />
       </View>
-      <TakeAShoot onTakeAShootPress={takePhoto} />
-      <GoForward
-        imagePlaceholderText={require("../assets/arrow-2.png")}
-        propTop={689}
-        propLeft={202}
-        propTop1="34.22%"
-        propRight="19.5%"
-        propBottom="34.22%"
-        propLeft1="19%"
-        onGoForwardPress={() => navigation.navigate("LandingPage2")}
-      />
       <Text style={styles.OnKamera}>Ön Kamera</Text>
       <View style={styles.cameraScreenContainer}>
       <Camera
@@ -122,6 +113,51 @@ const Selfie = () => {
         ref={cameraRef}
         />
       </View>
+      <View style={{ flex: 1, justifyContent: "flex-end", flexDirection: "row", }}>
+      <TouchableOpacity
+        onPress={takePhoto}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "15%",
+          height: "12.5%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf:"flex-end",
+          marginBottom: 50,
+          marginRight: 10,
+          flex: 0.25,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Image
+          source={require("../assets/icons8camera100-1.png")}
+          style={{ alignSelf: "center", width: 55, height: 55 }} 
+        />
+
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("LandingPage2")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          height: "12.5%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf:"flex-end",
+          flex: 0.125,
+          marginBottom: 50,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Image
+          source={require("../assets/arrow-2.png")}
+          style={{ alignSelf: "center", width: 55, height: 20 }} 
+        />
+      </TouchableOpacity>
+      </View> 
+      
     </View>
   );
 };
@@ -208,7 +244,7 @@ const styles = StyleSheet.create({
     top: 135,
     left: 113,
     fontSize: FontSize.size_xl,
-    lineHeight: 20,
+    lineHeight: 25,
     fontWeight: "500",
     fontFamily: FontFamily.interMedium,
     color: Color.white,
@@ -226,6 +262,7 @@ const styles = StyleSheet.create({
   },
 
   cameraScreenContainer: {
+    top: "20%",
     width: "80%", // Use percentage-based width
     aspectRatio: 3 / 4, // Maintain the aspect ratio (width / height)
     borderRadius: 10, // Rounded corners

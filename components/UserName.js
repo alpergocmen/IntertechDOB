@@ -10,10 +10,10 @@ const UserName = () => {
      
         <View style={styles.twoInputs}>
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input} placeholder="TCKN" editable={false} />
+          <TextInput style={styles.input} placeholder="Kullanıcı Adı/TCKN" editable={false} />
         </View>
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input} placeholder="Şifre" editable={false}/>
+          <TextInput style={styles.input} placeholder="Parola" editable={false}/>
         </View>
         </View>
         <View style={styles.centerContainer}>

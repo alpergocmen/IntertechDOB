@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Pressable, View, Text } from "react-native";
+import { StyleSheet, Pressable, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import GoForward from "../components/GoForward";
+import CustomButton from "../components/customButton";
 import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 
 const Info = () => {
@@ -34,12 +35,7 @@ const Info = () => {
           source={require("../assets/logo-1.png")}
         />
       </View>
-      <StatusBarDark
-        statusBarDarkStatusBarDar={require("../assets/status-bar--dark2.png")}
-        statusBarDarkPosition="absolute"
-        statusBarDarkTop={0}
-        statusBarDarkLeft={0}
-      />
+      
       <Image
         style={[styles.kimlikk1Icon, styles.kimlikk11Layout]}
         contentFit="cover"
@@ -51,19 +47,26 @@ const Info = () => {
         source={require("../assets/kimlikk-1-1.png")}
       />
       <Text style={styles.kimliinNVe}>
-        Kimliğin ön ve arka yüzünü düz bir zemin üzerinde, kenarları dikdörtgene
-        denk gelecek şekilde ve yazıları okunaklı olacak şekilde tutun.
+        Kimliğin ön ve arka yüzünü düz bir zemin üzerinde ve kenarları dikdörtgen içerisine denk gelecek şekilde tutun.
       </Text>
-      <GoForward
-        imagePlaceholderText={require("../assets/arrow-2.png")}
-        propTop={689}
-        propLeft={202}
-        propTop1="34.22%"
-        propRight="19.5%"
-        propBottom="34.22%"
-        propLeft1="19%"
-        onGoForwardPress={() => navigation.navigate("KimlikOnYuz")}
-      />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("KimlikOnYuz")}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: "20%",
+          padding: 10,
+          borderRadius: 5,
+          alignSelf: "center",
+          marginBottom: 70, 
+        }}
+      >
+        <Image
+          source={require("../assets/arrow-2.png")}
+          style={{ alignSelf: "center", width: 55, height: 20 }} 
+        />
+      </TouchableOpacity>
+      </View>  
     </View>
   );
 };

@@ -1,19 +1,14 @@
 import React, { useMemo } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  ImageSourcePropType,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
-import { Border, Color } from "../GlobalStyles";
+import { Color, Border } from "../GlobalStyles";
 
 const getStyleValue = (key, value) => {
   if (value === undefined) return;
   return { [key]: value === "unset" ? undefined : value };
 };
-const GoForward = ({
+
+const CustomButton = ({
   imagePlaceholderText,
   propTop,
   propLeft,
@@ -21,16 +16,16 @@ const GoForward = ({
   propRight,
   propBottom,
   propLeft1,
-  onGoForwardPress,
+  onPress,
 }) => {
-  const goForwardStyle = useMemo(() => {
+  const buttonStyle = useMemo(() => {
     return {
       ...getStyleValue("top", propTop),
       ...getStyleValue("left", propLeft),
     };
   }, [propTop, propLeft]);
 
-  const arrowIconStyle = useMemo(() => {
+  const imageStyle = useMemo(() => {
     return {
       ...getStyleValue("top", propTop1),
       ...getStyleValue("right", propRight),
@@ -41,13 +36,13 @@ const GoForward = ({
 
   return (
     <TouchableOpacity
-      style={[styles.goForward, goForwardStyle]}
+      style={[styles.button, buttonStyle]}
       activeOpacity={0.2}
-      onPress={onGoForwardPress}
+      onPress={onPress}
     >
-      <View style={styles.goForwardChild} />
+      <View style={styles.buttonBackground} />
       <Image
-        style={[styles.goForwardItem, arrowIconStyle]}
+        style={[styles.buttonImage, imageStyle]}
         contentFit="cover"
         source={imagePlaceholderText}
       />
@@ -56,18 +51,29 @@ const GoForward = ({
 };
 
 const styles = StyleSheet.create({
-  goForwardChild: {
-    height: "80%",
-    width: "120%",
+  button: {
+    width: "33%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "7.5%",
+    marginLeft: "30%",
+    marginRight: "30%",
+    marginBottom: "15%",
+    backgroundColor: Color.gray,
+    borderRadius: Border.br_31xl,
+  },
+  buttonBackground: {
+    height: "100%",
+    width: "100%",
     top: "0%",
     right: "0%",
     bottom: "0%",
     left: "0%",
     borderRadius: Border.br_3xs,
-    backgroundColor: "rgb(179, 206, 229)",
+    backgroundColor: Color.gainsboro,
     position: "absolute",
   },
-  goForwardItem: {
+  buttonImage: {
     height: "31.56%",
     width: "61.5%",
     top: "34.22%",
@@ -79,13 +85,6 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
     position: "absolute",
   },
-  goForward: {
-    top: "5%",
-    left: "20%",
-    width: "20%",
-    height: "7.5%",
-    position: "absolute",
-  },
 });
 
-export default GoForward;
+export default CustomButton;

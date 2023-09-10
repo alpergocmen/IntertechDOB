@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { useEffect, useRef } from "react";
 import { Image } from "expo-image";
-import { StyleSheet, Pressable, View, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, Pressable, View, Text, TouchableHighlight, Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StatusBarDark from "../components/StatusBarDark";
 import KabulEdiyorum from "../components/KabulEdiyorum";
@@ -10,7 +10,18 @@ import { Border, Color, FontSize, FontFamily } from "../GlobalStyles";
 
 const KvkkPage = () => {
   const navigation = useNavigation();
+  const animatedScale = useRef(new Animated.Value(1)).current;
 
+  const buttonPress = () => {
+    animatedScale.setValue(0.8);
+    Animated.spring(animatedScale, {
+      toValue: 1,
+      bounciness: 5,
+      speed: 2,
+      useNativeDriver: true,
+    }).start();
+     navigation.navigate("Info");
+  };
   return (
     <View style={styles.kvkkPage}>
       <Image
@@ -36,12 +47,6 @@ const KvkkPage = () => {
           source={require("../assets/logo-1.png")}
         />
       </View>
-      <StatusBarDark
-        statusBarDarkStatusBarDar={require("../assets/status-bar--dark2.png")}
-        statusBarDarkPosition="absolute"
-        statusBarDarkTop={0}
-        statusBarDarkLeft={0}
-      />
       <KabulEdiyorum />
       
       <TouchableHighlight
@@ -55,8 +60,13 @@ const KvkkPage = () => {
         borderRadius: Border.br_31xl,
         backgroundColor: Color.gray,
       }}
-      onPress={() => navigation.navigate("Info")}
+      onPress={buttonPress}
       >
+        <Animated.View
+        style={{
+          transform: [{ scale: animatedScale }],
+        }}
+        >
         <Text 
       style={{
         textAlign: "center",
@@ -70,6 +80,7 @@ const KvkkPage = () => {
       >
         Devam Et
       </Text>
+      </Animated.View>
       </TouchableHighlight>
     </View>
   );

@@ -58,6 +58,7 @@ const KvkkInfoBox = () => {
     header2: {
       fontSize: 13,
       textDecorationLine: "underline",
+      textAlign: "left"
     },
     centeredView: {
       flex: 1,
@@ -102,8 +103,9 @@ const KvkkInfoBox = () => {
     },
     modalText: {
       marginBottom: 15,
-      textAlign: 'center',
+      textAlign: 'left',
     },
+    
   });
   
   export default KvkkInfoBox;

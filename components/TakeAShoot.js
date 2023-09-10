@@ -41,11 +41,12 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   takeAShoot: {
-    top: 689,
+    top: "87.5%",
     left: 78,
-    width: 100,
-    height: 70,
+    width: 80,
+    height: 60,
     position: "absolute",
+    transform: [{ rotate: "90deg" }],
   },
 });
 
